@@ -1,5 +1,6 @@
 <?
 class Route{
+
     static function start(){
         // контроллер и действие по умолчанию
         $controller_name = 'Main';
@@ -48,4 +49,5 @@ class Route{
         header("Status: 404 Not Found");
         header('Location:' . $host . '404');
     }
+    
 }
