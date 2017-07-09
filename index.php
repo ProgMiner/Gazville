@@ -1,15 +1,18 @@
 <?
 ini_set('display_errors', 1);
 
-// подключаем файлы ядра;
-require_once 'core/model.php';
-require_once 'core/view.php';
-require_once 'core/controller.php';
-require_once 'core/route.php';
+// Конфигурация
 require_once 'config.php';
+
+// Подключаем файлы ядра
 require_once 'core/db.php'
+require_once 'core/model.php';
+require_once 'core/controller.php';
+require_once 'core/view.php';
+require_once 'core/route.php';
+
 /*
-Здесь обычно подключаются дополнительные модули, реализующие различный функционал:
+Здесь подключаются дополнительные модули, реализующие различный функционал:
 	> аутентификацию
 	> кеширование
 	> работу с формами
@@ -22,5 +25,4 @@ require_once 'core/db.php'
 	> и др.
 */
 
-require_once 'core/route.php';
-Route::start(); // запускаем маршрутизатор
+Route::start(); // Запускаем маршрутизатор
