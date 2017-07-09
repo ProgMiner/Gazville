@@ -4,8 +4,8 @@ class Route{
     static function start(){
 
         // контроллер и действие по умолчанию
-        $controller_name = 'Main';
-        $action_name = 'index';
+        $controller_name = 'Page';
+        $action_name = 'main';
         
         $routes = explode('/', $_SERVER['REQUEST_URI']);
         if(!empty($routes[1])) $controller_name = $routes[1];
@@ -40,7 +40,7 @@ class Route{
         $action = $action_name;
         
         if(method_exists($controller, $action))
-            $controller->$action(); // вызываем действие контроллера
+            $controller->$action(array_slice($routes, 3)); // вызываем действие контроллера
         else Route::error404(); // здесь также разумнее было бы кинуть исключение
 
     }

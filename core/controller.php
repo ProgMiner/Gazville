@@ -10,6 +10,6 @@ class Controller {
         
     }
     
-    function action_index(){}
+    function action_main(){}
     
 }
