@@ -2,6 +2,7 @@
 class Route{
 
     static function start(){
+
         // контроллер и действие по умолчанию
         $controller_name = 'Main';
         $action_name = 'index';
@@ -11,9 +12,9 @@ class Route{
         if(!empty($routes[2])) $action_name = $routes[2];
 
         // добавляем префиксы
-        $model_name = 'Model_'.$controller_name;
-        $controller_name = 'Controller_'.$controller_name;
-        $action_name = 'action_'.$action_name;
+        $model_name = 'Model_' . $controller_name;
+        $controller_name = 'Controller_' . $controller_name;
+        $action_name = 'action_' . $action_name;
 
         // подцепляем файл с классом модели (файла модели может и не быть)
         $model_file = strtolower($model_name) . '.php';
@@ -41,13 +42,16 @@ class Route{
         if(method_exists($controller, $action))
             $controller->$action(); // вызываем действие контроллера
         else Route::error404(); // здесь также разумнее было бы кинуть исключение
+
     }
     
     function error404(){
+
         $host = 'http://' . $_SERVER['HTTP_HOST'] . '/';
         header('HTTP/1.1 404 Not Found');
         header("Status: 404 Not Found");
         header('Location:' . $host . '404');
+        
     }
     
 }
