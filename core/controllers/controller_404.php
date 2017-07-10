@@ -2,10 +2,12 @@
 
 class Controller_404 extends Controller{
 
-    function action_main(){
+    function start(){
 
-        $this->view->generate('404.php', 'page.php');
+        Util::log("404 Not Found", __FILE__, __LINE__);
 
+        header("HTTP/1.1 404 Not Found");
+        header("Status: 404 Not Found");
+        View::generate("404.php");
     }
-
 }

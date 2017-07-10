@@ -1,18 +1,24 @@
 <?
-class View{
-    
-    public $template_view = 'main.php';
 
+abstract class View{
+
+    public static $default_template_view = "index.php";
+
+    public static $path = array(
+            'view' => "core/views/",
+            'template' => "core/views/templates/"
+        );
+    
     /*
         $content_file - шаблон содержимого страницы;
         $template_file - общий шаблон страницы;
         $data - массив, содержащий данные модели. Обычно заполняется в модели.
     */
     
-    function generate($content_view, $template_view = '', $data = null){
+    public static function generate($content_view, $template_view = "", $data = array()){
 
-        if(empty($template_view)) $template_view = $this->template_view; 
-        $content_view = 'core/views/' . $content_view;
+        if(empty($template_view)) $template_view = View::$default_template_view;
+        $content_view = View::$path['view'] . $content_view;
 
         if(is_array($data)) extract($data); // Преобразуем элементы массива в переменные
         
@@ -21,8 +27,6 @@ class View{
             внутри которого будет встраиваться вид
             для отображения контента конкретной страницы.
         */
-        include 'core/views/templates/' . $template_view;
-        
+        include View::$path['template'] . $template_view;
     }
-
 }

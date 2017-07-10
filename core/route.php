@@ -1,57 +1,53 @@
 <?
-class Route{
+abstract class Route{
 
-    static function start(){
+    public static $default_controller_name = "Page";
+    public static $notfound_controller_name = "404";
 
-        // контроллер и действие по умолчанию
-        $controller_name = 'Page';
-        $action_name = 'main';
+    public static $path = array(
+            'model' => "core/models/",
+            'controller' => "core/controllers/"
+        );
+
+    public static $prefix = array(
+            'model' => "Model_",
+            'controller' => "Controller_"
+        );
+
+    public static function start(){
+
+        $controller_name = Route::$default_controller_name;
         
-        $routes = explode('/', $_SERVER['REQUEST_URI']);
-        if(!empty($routes[1])) $controller_name = $routes[1];
-        if(!empty($routes[2])) $action_name = $routes[2];
-
-        // добавляем префиксы
-        $model_name = 'Model_' . $controller_name;
-        $controller_name = 'Controller_' . $controller_name;
-        $action_name = 'action_' . $action_name;
-
-        // подцепляем файл с классом модели (файла модели может и не быть)
-        $model_file = strtolower($model_name) . '.php';
-        $model_path = "core/models/" . $model_file;
-        if(file_exists($model_path))
-            include "core/models/" . $model_file;
-
-        // подцепляем файл с классом контроллера
-        $controller_file = strtolower($controller_name) . '.php';
-        $controller_path = "core/controllers/" . $controller_file;
-        if(file_exists($controller_path))
-            include "core/controllers/" . $controller_file;
-        else{
-            /*
-            правильно было бы кинуть здесь исключение,
-            но для упрощения сразу сделаем редирект на страницу 404
-            */
-            Route::error404();
+        $args = explode("/", $_SERVER['REQUEST_URI']);
+        {
+            $last = count($args) - 1;
+            $args[$last] = explode("?", $args[$last]);
+            $args[$last] = $args[$last][0];
         }
-        
-        // создаем контроллер
-        $controller = new $controller_name;
-        $action = $action_name;
-        
-        if(method_exists($controller, $action))
-            $controller->$action(array_slice($routes, 3)); // вызываем действие контроллера
-        else Route::error404(); // здесь также разумнее было бы кинуть исключение
 
-    }
-    
-    static function error404(){
+        if(!empty($args[1])) $controller_name = $args[1];
 
-        $host = 'http://' . $_SERVER['HTTP_HOST'] . '/';
-        header('HTTP/1.1 404 Not Found');
-        header("Status: 404 Not Found");
-        header('Location:' . $host . '404');
-        
+        $model_name = Route::$prefix['model'] . $controller_name;
+        $controller_name = Route::$prefix['controller'] . $controller_name;
+
+        $model_file = strtolower($model_name) . ".php";
+        $model_path = Route::$path['model'] . $model_file;
+
+        if(file_exists($model_path)) include($model_path);
+
+        for($i = 0; $i < 2; $i++){
+
+            $controller_file = strtolower($controller_name) . ".php";
+            $controller_path = Route::$path['controller'] . $controller_file;
+            if(file_exists($controller_path)) break;
+
+            $controller_name = Route::$prefix['controller'] . Route::$notfound_controller_name;
+        }
+        if(!file_exists($controller_path)) Util::_die("Not Found controller doesn't exists!", __FILE__, __LINE__);
+
+        include($controller_path);
+
+        $controller = new $controller_name($args);
+        $controller->start();
     }
-    
 }

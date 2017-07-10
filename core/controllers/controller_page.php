@@ -2,17 +2,14 @@
 
 class Controller_Page extends Controller{
 
-    function __construct(){
+    function __construct($args){
 
-        parent::__construct();
+        parent::__construct($args);
         $this->model = new Model_Page();
-
     }
 
-    function action_main(){
+    function start(){
 
-        $this->view->generate('main.php', 'page.php', $this->model->getData());
-
+        View::generate("main.php", View::$default_template_view, $this->model->getData());
     }
-
 }

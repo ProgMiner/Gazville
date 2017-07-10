@@ -1,6 +1,5 @@
 <?
-class Model{
+abstract class Model{
 
-    public function getData(){}
-    
+    public abstract function getData();
 }

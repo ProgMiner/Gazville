@@ -1,15 +1,14 @@
 <?
-class Controller {
-    
-    public $model;
-    public $view;
-    
-    function __construct(){
 
-        $this->view = new View();
-        
+abstract class Controller {
+    
+    public $arguments;
+    public $model;
+    
+    public function __construct($args){
+
+        $this->arguments = $args;
     }
     
-    function action_main(){}
-    
+    public abstract function start();
 }

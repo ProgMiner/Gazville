@@ -1,15 +1,18 @@
 <?
-ini_set('display_errors', 1);
+
+ini_set("display_errors", 1);
 
 // Конфигурация
-require_once 'config.php';
+define("DEBUG", true);
+require_once("config.php");
 
 // Подключаем файлы ядра
-require_once 'core/db.php';
-require_once 'core/model.php';
-require_once 'core/controller.php';
-require_once 'core/view.php';
-require_once 'core/route.php';
+require_once("core/db.php");
+require_once("core/util.php");
+require_once("core/model.php");
+require_once("core/controller.php");
+require_once("core/view.php");
+require_once("core/route.php");
 
 /*
 Здесь подключаются дополнительные модули, реализующие различный функционал:
