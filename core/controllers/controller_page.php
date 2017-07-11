@@ -1,6 +1,6 @@
 <?
 
-include(Route::$path['controller']."Controller_404.php");
+include(Route::$path['controller'].Route::$prefix['controller']."404.php");
 
 class Controller_Page extends Controller{
 
