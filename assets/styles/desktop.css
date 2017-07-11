@@ -1,0 +1,256 @@
+html, body{
+    position: relative;
+    background: #84be1f;
+    width: 100%;
+    min-width: 1024px;
+    z-index: -1;
+    font-size: 14px;
+}
+body::before, body::after{
+    content: '';
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    z-index: -1;
+}
+body::before{
+    background: #004200;
+    box-shadow: 0px 0px 5px;
+    height: 87px;
+    top: 0px;
+}
+body::after{
+    border-top: 1px solid #c1e478;
+    background: #0e1803;
+    height: 115px;
+    bottom: 0px;
+}
+#loadinglayer{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 100;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding-top: 150px;
+    text-align: center;
+    font-size: 24pt;
+    color: #fff;
+    transition: 0.5s;
+}
+#center{
+    width: 1014px;
+    height: 100%;
+    margin: 0px auto;
+    padding: 0px;
+}
+#header{
+    height: 87px;
+    margin-bottom: 38px;
+    overflow: hidden;
+}
+#searchcont{
+    display: inline-block;
+    width: auto;
+    height: 100%;
+    float: right;
+    margin-right: 50px;
+}
+#searchcont > .searchform{
+    margin: 31px 0px;
+}
+#main{
+    vertical-align: top;
+    background: #f1f0ed;
+    border-radius: 7px;
+    box-shadow: 0px 5px 20px -5px;
+    overflow: hidden;
+}
+#sidebar{
+    vertical-align: top;
+}
+#sidebarcontent{
+    position: relative;
+    overflow: auto;
+    padding-bottom: 15px;
+}
+#sidebarcontent > .menu{
+    margin: 15px auto;
+}
+.menu{
+    display: block;
+    width: 240px;
+    overflow: hidden;
+    background: #2a2a2a;
+    border-radius: 5px;
+}
+.menu > .menu-item > a{
+    display: block;
+    width: 100%;
+    padding: 7px 13px 8px;
+    border-top: 1px solid #404040;
+    border-bottom: 1px solid #1e1e1e;
+    text-shadow: 0 1px 0 #1f1f1f;
+    text-decoration: none;
+    color: #fff;
+    transition: 0.35s;
+}
+.menu > .menu-item > a:hover{
+    background: url('assets/images/menugrad.png') #66a815;
+    background-size: auto 100%;
+    text-shadow: 0 1px 0 #5a8e10;
+    border-top: 1px solid #99d134;
+    border-bottom: 1px solid #243a07;
+}
+.menu > .menu-item:last-child > a{
+    border-bottom: none;
+}
+#loginlink{
+    display: block;
+    text-align: center;
+    font-size: 10pt;
+    color: #aaa;
+}
+#content{
+    border-spacing: 0px;
+    padding: 0px;
+    overflow: hidden;
+    vertical-align: top;
+    background: #fff;
+    box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.5);
+    border-left: 1px solid #bbb;
+}
+#content img{
+    max-width: 640px;
+    height: auto;
+}
+#content td, #content tr{
+    border-spacing: 0px;
+    padding: 0px;
+}
+div.post, div.page{
+    border-spacing: 0px;
+    padding: 25px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+div.post{
+    padding: 15px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    box-shadow: 0px 2.5px 5px -2.5px #888;
+}
+div.post > .posttitle, div.page > span.pagetitle{
+    display: block;
+    color: #68a719;
+    font-size: 1.5em;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+div.post > a.posttitle:hover{
+    text-decoration: underline;
+}
+div.post > .posttitle + span{
+    display: block;
+    font-size: small;
+    color: #888785;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #cfcfcf;
+}
+div.post > div.postcontent, div.page > div.pagecontent{
+    margin-bottom: 5px;
+    overflow: auto;
+}
+div.post > div.postcontent{
+    border-bottom: 1px solid #cfcfcf;
+}
+div.post > a[rel~="category"]{
+    display: block;
+    float: left;
+    margin-left: 5px;
+    line-height: 30px;
+    font-size: 18px;
+    color: #1a4780;
+}
+div.post > a.postmore, div.post > span.postfunc{
+    display: block;
+    float: right;
+    margin-right: 5px;
+    line-height: 24px;
+}
+div.post > a.postmore{
+    padding: 2px 5px;
+    border: 1px outset #ad7;
+    text-shadow: 0px 1px 0px #5f9d06;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    background: linear-gradient(to top, #6aab16, #86c01f);
+    border-radius: 5px;
+    transition: 0.35s;
+}
+div.post > a.postmore:hover{
+    background: linear-gradient(to top, #87d91c, #a0de35);
+}
+nav.navigation.pagination{
+    display: block;
+    margin: 5px;
+    text-align: center;
+}
+nav.navigation.pagination > .screen-reader-text{
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-style: italic;
+    font-size: 17px;
+}
+nav.navigation.pagination > .nav-links{
+    display: inline-block;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    overflow: hidden;
+}
+nav.navigation.pagination > .nav-links > .page-numbers{
+    display: inline-block;
+    font-size: 20px;
+    line-height: 25px;
+    padding: 5px 10px;
+    border-right: 1px solid #aaa;
+    float: left;
+    text-decoration: none;
+    cursor: default;
+}
+nav.navigation.pagination > .nav-links > a.page-numbers{
+    color: #68a719;
+}
+nav.navigation.pagination > .nav-links > .page-numbers:last-child{
+    border-right: none;
+}
+nav.navigation.pagination > .nav-links:not(:hover) > .page-numbers.current, nav.navigation.pagination > .nav-links > a.page-numbers:hover{
+    background-color: #68a719;
+    color: #fff;
+    cursor: pointer;
+}
+nav.navigation.pagination > .nav-links > .page-numbers.next, nav.navigation.pagination > .nav-links > .page-numbers.prev{
+    padding: 0px 20px;
+    font-size: 30px;
+    line-height: 35px;
+}
+#footer{
+    height: 116px;
+    margin-top: 35px;
+    padding-left: 30px;
+    position: relative;
+    color: #fff;
+    overflow: auto;
+}
+#copyright{
+    display: inline-block;
+    margin: 24px;
+    padding-left: 51px;
+    background: url('assets/images/copyright.png') 0% 50% no-repeat;
+}

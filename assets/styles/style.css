@@ -1,0 +1,302 @@
+/*   
+Theme Name: Gazville
+Description: Gazville theme
+Author: ProgMiner
+Author URI: https://byprogminer.ru/;
+Version: 1.0
+*/
+
+html, body, div, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, pre, form, p, blockquote, fieldset, input{
+    margin: 0;
+    padding: 0;
+}
+.alignright {
+    display: inline;
+    float: right;
+}
+.aligncenter {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
+    margin: 0.4em 1.6em 1.6em 0;
+}
+blockquote.alignright, .wp-caption.alignright, img.alignright {
+    margin: 0.4em 0 1.6em 1.6em;
+}
+blockquote.aligncenter, .wp-caption.aligncenter, img.aligncenter {
+    clear: both;
+    margin-top: 0.4em;
+    margin-bottom: 1.6em;
+}
+.wp-caption.alignleft, .wp-caption.alignright, .wp-caption.aligncenter {
+    margin-bottom: 1.2em;
+}
+*{
+    outline: none;
+    font-family: Tahoma, "Trebuchet MS", Helvetica, sans-serif;
+}
+a{
+    color: #00f;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+button, input, select, textarea{
+    background-color: #f7f7f7;
+    border-radius: 0;
+    font-size: 15px;
+    line-height: 20px;
+    max-width: 100%;
+    vertical-align: baseline;
+}
+button, input{
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+input, textarea{
+    background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)); /* Removing the inner shadow on iOS inputs */
+    border: 1px solid #eaeaea;
+    border: 1px solid rgba(51, 51, 51, 0.1);
+    color: #707070;
+    color: rgba(51, 51, 51, 0.7);
+}
+input:focus, textarea:focus{
+    background-color: #fff;
+    border: 1px solid #c1c1c1;
+    border: 1px solid rgba(51, 51, 51, 0.3);
+    color: #333;
+}
+input:focus, select:focus{
+    outline: 2px solid #c1c1c1;
+    outline: 2px solid rgba(51, 51, 51, 0.3);
+}
+button[disabled], input[disabled], select[disabled], textarea[disabled]{
+    cursor: default;
+    opacity: .5;
+}
+button, input[type="button"], input[type="reset"], input[type="submit"]{
+    -webkit-appearance: button;
+    background-color: #333;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover, button:focus, input[type="button"]:focus, input[type="reset"]:focus, input[type="submit"]:focus{
+    background-color: #707070;
+    background-color: rgba(51, 51, 51, 0.7);
+    outline: 0;
+}
+input[type="search"]{
+    -webkit-appearance: textfield;
+}
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration{
+    -webkit-appearance: none;
+}
+button::-moz-focus-inner, input::-moz-focus-inner{
+    border: 0;
+    padding: 0;
+}
+input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="search"], textarea{
+    width: 100%;
+    padding: 5px;
+}
+textarea{
+    overflow: auto;
+    vertical-align: top;
+}
+input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="password"]:focus, input[type="search"]:focus, textarea:focus{
+    outline: 0;
+}
+
+html, body{
+    width: 100%;
+    min-height: 100%;
+    overflow: auto;
+    font-size: 18px;
+    background-color: #2b152d;
+    background-image: url('/assets/images/background.jpg');
+    background-position: 50% 50%;
+    background-attachment: fixed;
+    background-size: cover;
+}
+html{
+    min-width: 1268px;
+    height: 100%;
+}
+body{
+    min-width: 1210px;
+    max-width: calc(100% - 48px);
+    margin-left: 48px;
+}
+#loadinglayer{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 100000;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding-top: 150px;
+    text-align: center;
+    font-size: 24pt;
+    color: #fff;
+    transition: 0.5s;
+}
+#center{
+    width: 1200px;
+    margin: 0px auto;
+    overflow: auto;
+}
+#content{
+    width: 100%;
+    margin-bottom: 15px;
+}
+div.post{
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 15px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85));
+    background-size: calc(100% - 155px) 100%;
+    background-position: 100% 0%;
+    background-repeat: no-repeat;
+}
+div.postsidebar{
+    float: left;
+    width: 155px;
+    box-sizing: border-box;
+    padding-bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.55);
+}
+img.postavatar{
+    display: block;
+    width: 140px;
+    height: 140px;
+    margin: 7.5px auto 5px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
+    border-radius: 70px;
+    transition: 0.35s;
+    cursor: pointer;
+}
+img.postavatar:hover{
+    box-shadow: 0px 0px 15px #000;
+}
+a.postauthor{
+    display: block;
+    overflow: hidden;
+    text-align: center;
+    font-size: 18px;
+    color: #000;
+}
+div.postcenter{
+    width: calc(100% - 170px);
+    min-height: 100px;
+    margin-left: 15px;
+    padding: 5px;
+    box-sizing: border-box;
+    float: right;
+}
+div.postcenter:first-child{
+    width: 100%;
+}
+div.posttitle{
+    margin-bottom: -5px;
+    font-size: 32px;
+}
+div.posttitle > a{
+    color: #000;
+    text-decoration: none;
+}
+div.posttitle + a{
+    display: inline-block;
+    margin-top: -5px;
+    font-size: 12px;
+    color: #333;
+}
+div.postcontent{
+    margin-top: 15px;
+}
+nav.navigation.pagination{
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+}
+nav.navigation.pagination > .nav-links{
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.65);
+    overflow: hidden;
+    padding: 5px;
+}
+nav.navigation.pagination > .nav-links .page-numbers{
+    display: inline-block;
+    float: left;
+    font-size: 20px;
+    line-height: 25px;
+    padding: 5px 10px;
+    margin-right: 2px;
+    text-decoration: none;
+    cursor: default;
+}
+nav.navigation.pagination > .nav-links > a.page-numbers, nav.navigation.pagination > .nav-links > a > .page-numbers{
+    color: #000;
+}
+nav.navigation.pagination > .nav-links .page-numbers:last-child{
+    margin-right: 0px;
+}
+nav.navigation.pagination > .nav-links:not(:hover) > .page-numbers.current, nav.navigation.pagination > .nav-links > a.page-numbers:hover,
+nav.navigation.pagination > .nav-links:not(:hover) > span.page-numbers, nav.navigation.pagination > .nav-links > a:hover > span.page-numbers{
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+nav.navigation.pagination > .nav-links .page-numbers.next, nav.navigation.pagination > .nav-links .page-numbers.prev{
+    padding: 0px 20px;
+    font-size: 30px;
+    line-height: 35px;
+}
+#footer{
+    width: 100%;
+    padding: 15px;
+    padding-left: 50px;
+    box-sizing: border-box;
+    background: url('/assets/images/copyright.png') 15px 15px no-repeat rgba(255, 255, 255, 0.65);
+    background-size: 32px 32px;
+    font-size: 12px;
+}
+#footer > a{
+    font-style: italic;
+    color: #333;
+}
+form.searchform{
+    overflow: auto;
+    position: relative;
+    padding-right: 31px;
+}
+form.searchform > input:first-child{
+    display: block;
+    margin-right: -1px;
+    vertical-align: top;
+}
+form.searchform > input:last-child{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 32px;
+    vertical-align: top;
+    background-image: url('/assets/images/search.svg');
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-size: 32px auto;
+}
+form.searchform > input:last-child:hover{
+    background-position-y: 100%;
+}
