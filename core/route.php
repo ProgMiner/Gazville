@@ -2,7 +2,6 @@
 abstract class Route{
 
     public static $default_controller_name = "Page";
-    public static $notfound_controller_name = "404";
 
     public static $path = array(
             'model' => "core/models/",
@@ -50,15 +49,14 @@ abstract class Route{
 
         if(file_exists($model_path)) include($model_path);
 
-        for($i = 0; $i < 2; $i++){
+        $controller_file = strtolower($controller_name) . ".php";
+        $controller_path = Route::$path['controller'] . $controller_file;
 
-            $controller_file = strtolower($controller_name) . ".php";
-            $controller_path = Route::$path['controller'] . $controller_file;
-            if(file_exists($controller_path)) break;
+        if(!file_exists($controller_path)){
 
-            $controller_name = Route::$prefix['controller'] . Route::$notfound_controller_name;
+            header("Location: /404");
+            die();
         }
-        if(!file_exists($controller_path)) Util::_die("Not Found controller doesn't exists!", __FILE__, __LINE__);
 
         Util::log("Controller: {$controller_path}", __FILE__, __LINE__);
 

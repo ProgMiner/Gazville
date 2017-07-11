@@ -1,7 +1,5 @@
 <?
 
-include(Route::$path['controller'].Route::$prefix['controller']."404.php");
-
 class Controller_Page extends Controller{
 
     public function __construct($args){
@@ -17,8 +15,12 @@ class Controller_Page extends Controller{
         $data = $this->model->getData();
 
         if(count($data) === 0){
-            $tmp = new Controller_404($this->arguments[2]);
-            $tmp->start();
+
+            Util::log("404 Not Found", __FILE__, __LINE__);
+
+            header("HTTP/1.1 404 Not Found");
+            header("Status: 404 Not Found");
+            header("Location: /404");
 
             return;
         }
