@@ -12,6 +12,11 @@ class DBSingleton{
 
             if (self::$mysqli->connect_error)
                 die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+
+            self::$mysqli->query("set character_set_client='cp1251'"); 
+            self::$mysqli->query("set character_set_results='cp1251'"); 
+            self::$mysqli->query("set collation_connection='cp1251_general_ci'");
+
         }
         return self::$mysqli;
     }
