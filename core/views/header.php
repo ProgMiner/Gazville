@@ -7,6 +7,9 @@
         <meta charset="windows-1251">
         <meta name="viewport" content="width=device-width">
 
+        <link rel="icon" href="/assets/images/logo-150x150.jpg" sizes="32x32" />
+        <link rel="icon" href="/assets/images/logo.jpg" sizes="192x192" />
+
         <link rel="stylesheet" href="/assets/styles/style.css" />
         <link rel="stylesheet" href="/assets/styles/loading.css" />
         <link rel="stylesheet" href="/assets/styles/sidebar.css" />
