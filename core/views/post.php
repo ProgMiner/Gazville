@@ -11,6 +11,6 @@
             <div class="posttitle"><a href="<?echo the_permalink();?>"><?echo the_title();?></a></div>
             <a href="<?echo the_permalink();?>"><?echo the_time("d-m-Y, H:i");?></a>
         <?endif;?>
-        <div class="postcontent"><?if($inTheLoop) the_content(); else echo "Р—Р°РїРёСЃРµР№ РЅРµС‚";?></div>
+        <div class="postcontent"><?if($inTheLoop) the_content(); else echo "Записей нет";?></div>
     </div>
 </div>

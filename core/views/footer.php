@@ -1,8 +1,8 @@
             </div>
             <div id="footer">
                 <b>Gazville.Ru</b><br>
-                Р”РёР·Р°Р№РЅ Рё СЂР°Р·СЂР°Р±РѕС‚РєР°: Р­СЂРёРґР°РЅ <a href="https://byprogminer.ru/" target="_blank">ProgMiner</a> Р”РѕРјРѕСЂР°С†РєРёР№<br>
-                Р”РёР·Р°Р№РЅ: РђР»РµРєСЃР°РЅРґСЂ <a href="https://vk.com/id271352991" target="_blank">Kanna</a> РҐСЂРёРїСѓРЅРѕРІ<br>
+                Дизайн и разработка: Эридан <a href="https://byprogminer.ru/" target="_blank">ProgMiner</a> Доморацкий<br>
+                Дизайн: Александр <a href="https://vk.com/id271352991" target="_blank">Kanna</a> Хрипунов<br>
                 2017
             </div>
         </div>

@@ -1,4 +1,4 @@
 <form role="search" method="get" class="searchform" action="<?echo home_url("/");?>">
-    <input type="search" value="<?echo get_search_query();?>" name="s" placeholder="ÐŸÐ¾Ð¸ÑÐº"/><!--
- --><input type="submit" value="" title="ÐÐ°Ð¹Ñ‚Ð¸"/>
+    <input type="search" value="<?echo get_search_query();?>" name="s" placeholder="Ïîèñê"/><!--
+ --><input type="submit" value="" title="Íàéòè"/>
 </form>

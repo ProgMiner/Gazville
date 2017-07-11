@@ -1,10 +1,10 @@
-<?header("Content-Type: text/html, charset=utf-8");?>
+<?header("Content-Type: text/html, charset=windows-1251");?>
 <!DOCTYPE html>
 <html>
     <head>
         <title><?if(!empty($title)) echo "{$title} &mdash; ";?>Gazville.Ru</title>
 
-        <meta charset="utf-8">
+        <meta charset="windows-1251">
         <meta name="viewport" content="width=device-width">
 
         <link rel="stylesheet" href="/assets/styles/style.css" />
@@ -17,7 +17,7 @@
     </head>
     <body onLoad="$('#loadinglayer').css('display', '');" onBeforeUnload="$('#loadinglayer').css('display', 'block');">
         <div id="loadinglayer" style="display: block;">
-            Р—Р°РіСЂСѓР·РєР°
+            Загрузка
             <div id="squaresWaveG">
                 <div id="squaresWaveG_1" class="squaresWaveG"></div>
                 <div id="squaresWaveG_2" class="squaresWaveG"></div>
@@ -32,10 +32,10 @@
         <?include(View::$path['view'] . "sidebar.php");?>
         <div id="center">
             <div id="header">
-                <a class="vk" href="https://vk.com/club70404044" target="_blank">Р“СЂСѓРїРїР°</a><!--
-             --><a class="info" href="/info">РРЅС„РѕСЂРјР°С†РёСЏ</a><!--
-             --><a class="events" href="/events">РЎРѕР±С‹С‚РёСЏ</a><!--
-             --><a class="rubrics" href="/c/rubrics">Р СѓР±СЂРёРєРё</a><!--
-             --><a class="feedback" href="/feedback">РћР±СЂР°С‚РЅР°СЏ СЃРІСЏР·СЊ</a>
+                <a class="vk" href="https://vk.com/club70404044" target="_blank">Группа</a><!--
+             --><a class="info" href="/info">Информация</a><!--
+             --><a class="events" href="/events">События</a><!--
+             --><a class="rubrics" href="/c/rubrics">Рубрики</a><!--
+             --><a class="feedback" href="/feedback">Обратная связь</a>
             </div>
             <div id="content">

@@ -36,7 +36,7 @@
     color: #000;
     transition: 0.35s;
 
-    background: url('../images/sidebar.svg') 0% 0% no-repeat;
+    background: url('/assets/images/sidebar.svg') 0% 0% no-repeat;
     background-size: 48px auto;
 }
 #sidebar > a:hover{
@@ -113,7 +113,7 @@ a#sidebarexpand:after{
     background-position-y: 91%;
 }
 #sidebar > a.search{
-    background-image: url('../images/search.svg');
+    background-image: url('/assets/images/search.svg');
     background-position-y: 100%;
     position: relative;
     cursor: default;

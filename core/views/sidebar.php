@@ -1,18 +1,18 @@
 <div id="sidebar">
-    <a id="sidebarexpand">РЎРІРµСЂРЅСѓС‚СЊ</a>
+    <a id="sidebarexpand">Свернуть</a>
     <?if(false)://TODO?>
         <a class="search"><?include(View::$path['view'] . "searchform.php");?></a>
         <a class="split"></a>
-        <a href="/profile">РњРѕСЏ СЃС‚СЂР°РЅРёС†Р°</a>
-        <a class="news" href="/c/feed">РќРѕРІРѕСЃС‚Рё</a>
-        <a class="messages">РЎРѕРѕР±С‰РµРЅРёСЏ</a>
-        <a class="friends">Р”СЂСѓР·СЊСЏ</a>
-        <a class="groups">Р“СЂСѓРїРїС‹</a>
-        <a class="photo">Р¤РѕС‚РѕРіСЂР°С„РёРё</a>
-        <a class="audio">РђСѓРґРёРѕР·Р°РїРёСЃРё</a>
-        <a class="video">Р’РёРґРµРѕР·Р°РїРёСЃРё</a>
-        <a class="games">РРіСЂС‹</a>
+        <a href="/profile">Моя страница</a>
+        <a class="news" href="/c/feed">Новости</a>
+        <a class="messages">Сообщения</a>
+        <a class="friends">Друзья</a>
+        <a class="groups">Группы</a>
+        <a class="photo">Фотографии</a>
+        <a class="audio">Аудиозаписи</a>
+        <a class="video">Видеозаписи</a>
+        <a class="games">Игры</a>
     <?else:?>
-        <a class="register">Р РµРіРёСЃС‚СЂР°С†РёСЏ</a>
+        <a class="register">Регистрация</a>
     <?endif;?>
 </div>
