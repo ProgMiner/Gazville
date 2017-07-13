@@ -52,4 +52,9 @@ abstract class Util{
 
         Util::_die("MySQL Error({$mysqli->errno}): {$mysqli->error}", $file, $line, false);
     }
+
+    public static function opensslDie($file = __FILE__, $line = __LINE__){
+
+        Util::_die("OpenSSL " . openssl_error_string(), $file, $line);
+    }
 }
