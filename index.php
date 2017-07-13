@@ -40,7 +40,7 @@ $pem = openssl_encrypt($pem, User::$openssl_aes_method, md5(TEST_PASSWORD), 0, s
 echo($pem);
 */
 
-//User::login("ProgMiner", md5(TEST_PASSWORD));
+User::login(TEST_LOGIN, md5(TEST_PASSWORD));
 
 die();
 
