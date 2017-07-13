@@ -1,18 +1,20 @@
 <?
 
-ini_set("display_errors", 1);
-
-// Конфигурация
+// Configuration
 define("DEBUG", true);
 require_once("config.php");
 
-// Подключаем файлы ядра
+ini_set("display_errors", DEBUD ? 1 : 0);
+error_reporting(DEBUG ? E_ALL : 0);
+
+// Core files
 require_once("core/db.php");
 require_once("core/util.php");
 require_once("core/model.php");
 require_once("core/controller.php");
 require_once("core/view.php");
 require_once("core/route.php");
+require_once("core/user.php");
 
 /*
 Здесь подключаются дополнительные модули, реализующие различный функционал:
@@ -28,4 +30,19 @@ require_once("core/route.php");
 	> и др.
 */
 
-Route::start(); // Запускаем маршрутизатор
+/*
+$key = openssl_pkey_new(User::$openssl_config);
+var_dump(openssl_pkey_export($key, $pem, "", User::$openssl_config));
+echo($hash = md5($pem) . "\n");
+
+$pem = openssl_encrypt($pem, User::$openssl_aes_method, md5(TEST_PASSWORD), 0, substr($hash, 0, 16));
+
+echo($pem);
+*/
+
+//User::login("ProgMiner", md5(TEST_PASSWORD));
+
+die();
+
+User::start(); // Check authorization
+Route::start(); // Start routing

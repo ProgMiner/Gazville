@@ -2,7 +2,7 @@
 
 class Controller_Page extends Controller{
 
-    public function __construct($args){
+    public function __construct(array $args){
 
         parent::__construct($args);
 
@@ -25,6 +25,6 @@ class Controller_Page extends Controller{
             return;
         }
 
-        View::generate("page.php", $data);
+        View::generate($data, "page.php");
     }
 }

@@ -14,7 +14,7 @@ abstract class View{
         $data - массив, содержащий данные модели. Обычно заполняется в модели.
     */
     
-    public static function generate($template_view = "", $data = array()){
+    public static function generate(array $data = array(), $template_view = ""){
 
         if(empty($template_view)) $template_view = View::$default_template_view;
 

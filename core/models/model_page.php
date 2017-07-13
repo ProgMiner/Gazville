@@ -11,16 +11,17 @@ class Model_Page extends Model{
 
     function getData(){
 
-        $stmt = db()->prepare("SELECT `title`, `content`, `author` FROM `pages` WHERE `id` = ?");
+        $stmt = db()->prepare("SELECT `title`, `content`, `author` FROM `pages` WHERE `id` = ?")
+            or Util::mysqlDie(db(), __FILE__, __LINE__);
 
-        $stmt->bind_param("i", $id);
+        $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
         $id = $this->id;
 
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+        $result = $stmt->get_result() or Util::mysqlDie($stmt, __FILE__, __LINE__);
         $ret = $result->fetch_assoc();
 
-        $stmt->close();
+        $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
         return $ret;
     }
 

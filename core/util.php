@@ -36,11 +36,13 @@ abstract class Util{
         $url = $_SERVER['REQUEST_URI'];
 
         $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+
+        $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
     }
 
     public static function _die($msg, $file = __FILE__, $line = __LINE__, $log = true){
 
-        if($log) log($msg, $file, $line);
+        if($log) Util::log($msg, $file, $line);
 
         if(DEBUG) die("An error <b>" . $msg . "</b> occured in file <b>" . $file . "</b> on line <b>" . $line . "</b>.");
         else die("An error occured.");
