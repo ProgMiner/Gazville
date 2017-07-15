@@ -25,6 +25,7 @@ class Controller_Page extends Controller{
             return;
         }
 
-        View::generate($data, "page.php");
+        $this->view = new View($data, "page.php");
+        $this->view->place();
     }
 }

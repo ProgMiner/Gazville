@@ -8,11 +8,11 @@ ini_set("display_errors", DEBUD ? 1 : 0);
 error_reporting(DEBUG ? E_ALL : 0);
 
 // Core files
-require_once("core/db.php");
-require_once("core/util.php");
 require_once("core/controller.php");
 require_once("core/model.php");
 require_once("core/view.php");
+require_once("core/db.php");
+require_once("core/util.php");
 require_once("core/route.php");
 require_once("core/keychain.php");
 require_once("core/user.php");

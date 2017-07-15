@@ -10,8 +10,8 @@ function gazville_profile_title($title){
     $userName = $userData->display_name;
 
     if(strpos($request, "/settings") !== false){
-        if($userID == get_current_user_ID()) return "Настройки профиля";
-        else return "Настройки профиля {$userName}";
+        if($userID == get_current_user_ID()) return "РќР°СЃС‚СЂРѕР№РєРё РїСЂРѕС„РёР»СЏ";
+        else return "РќР°СЃС‚СЂРѕР№РєРё РїСЂРѕС„РёР»СЏ {$userName}";
     }
 
     return $userName;
@@ -36,7 +36,7 @@ $userData = get_userdata($userID);
         <div class="posttitle"><?echo gazville_profile_title("")?></div>
         <div class="postcontent">
             <?if(!is_user_logged_in()):?>
-                Вы не авторизированны на сайте!
+                Р’С‹ РЅРµ Р°РІС‚РѕСЂРёР·РёСЂРѕРІР°РЅРЅС‹ РЅР° СЃР°Р№С‚Рµ!
             <?else:?>
                 
             <?endif;?>

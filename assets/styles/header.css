@@ -22,7 +22,7 @@
     cursor: pointer;
     color: #000;
 
-    background: url('../images/header.svg') -8px 0% no-repeat rgba(255, 255, 255, 0.65);
+    background: url('../images/header.svg') calc(50% - 5px) 0% no-repeat rgba(255, 255, 255, 0.65);
     background-size: 204px auto
 }
 #header > a:hover{
@@ -60,17 +60,12 @@
     width: calc(20% - 18px);
     padding-right: 0px;
     margin-left: 0px;
-    background-position-x: 5px;
-}
-#header > a:first-child:before{
-    content: none;
 }
 #header > a:last-child{
     width: calc(20% - 18px);
     margin-right: 0px;
-    background-position-x: 0px;
 }
-#header > a:last-child:after{
+#header > a:first-child:before, #header > a:last-child:after{
     content: none;
 }
 

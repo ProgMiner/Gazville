@@ -2,8 +2,9 @@
 
 abstract class Controller {
     
-    public $arguments;
-    public $model;
+    private $arguments;
+    private $model;
+    private $view;
     
     public function __construct(array $args){
 

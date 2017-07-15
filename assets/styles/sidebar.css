@@ -109,9 +109,11 @@ a#sidebarexpand:after{
 #sidebar > a.games{
     background-position-y: 81%;
 }
-#sidebar > a.register{
-    background-position-y: 91%;
+
+#sidebar > a.login{
+    background-position-y: 101%;
 }
+
 #sidebar > a.search{
     background-image: url('/assets/images/search.svg');
     background-position-y: 100%;

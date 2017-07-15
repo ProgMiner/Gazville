@@ -1,28 +1,29 @@
 <?
 
-abstract class View{
+class View{
 
-    public static $default_template_view = "index.php";
-
-    public static $path = array(
-            'view' => "core/views/"
-        );
+    public static $default_view = "index.php";
+    public static $charset = "utf-8";
     
-    /*
-        $content_file - шаблон содержимого страницы;
-        $template_file - общий шаблон страницы;
-        $data - массив, содержащий данные модели. Обычно заполняется в модели.
-    */
+    private $data;
+    private $view;
     
-    public static function generate(array $data = array(), $template_view = ""){
+    public function __construct(array $data = array(), $view = null){
 
-        if(empty($template_view)) $template_view = View::$default_template_view;
+        if(is_null($view)) $view = View::$default_view;
 
-        if(is_array($data)) extract($data); // Преобразуем элементы массива в переменные
-        
-        /*
-            Динамически подключаем общий шаблон (вид)
-        */
-        include View::$path['view'] . $template_view;
+        $this->data = $data;
+        $this->view = $view;
+    }
+
+    public function placeView($view){
+
+        extract($this->data);
+        include(Route::$path['view'] . $view);
+    }
+
+    public function place(){
+
+        $this->placeView($this->view);
     }
 }

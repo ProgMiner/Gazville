@@ -4,8 +4,9 @@ abstract class Route{
     public static $default_controller_name = "Page";
 
     public static $path = array(
-            'model' => "core/models/",
-            'controller' => "core/controllers/"
+            'view' => "views/",
+            'model' => "models/",
+            'controller' => "controllers/"
         );
 
     public static $prefix = array(
