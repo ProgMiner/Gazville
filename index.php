@@ -32,6 +32,8 @@ require_once("core/user.php");
 */
 
 /*
+// Generating and encrypting user's key
+
 $key = openssl_pkey_new(User::$openssl_config);
 var_dump(openssl_pkey_export($key, $pem, "", User::$openssl_config));
 echo(($hash = md5($pem)) . "\n");
@@ -40,10 +42,6 @@ $pem = openssl_encrypt($pem, User::$openssl_aes, md5(TEST_PASSWORD), 0, hex2bin(
 
 echo($pem);
 */
-
-echo(User::login(TEST_LOGIN, md5(TEST_PASSWORD)));
-
-die();
 
 User::start(); // Check authorization
 Route::start(); // Start routing

@@ -1,6 +1,6 @@
 <div id="sidebar">
     <a id="sidebarexpand">Свернуть</a>
-    <?if(false)://TODO?>
+    <?if(User::isUserLoggedIn()):?>
         <a class="search"><?include(View::$path['view'] . "searchform.php");?></a>
         <a class="split"></a>
         <a href="/profile">Моя страница</a>

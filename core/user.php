@@ -11,13 +11,18 @@ class User{
             'encrypt_key'         => false
         );
 
+    public static $cookie_name = array(
+            'session_id'   => "session_id",
+            'session_code' => "session_code"
+        );
+
     private static $current_user;
 
     private $model;
 
-    private function __construct($id, $keychain){
+    private function __construct($keychain){
 
-        $this->model = new Model_User($id, $keychain);
+        $this->model = new Model_User($keychain);
     }
 
     public function logout(){
@@ -33,7 +38,7 @@ class User{
         $keychain = Keychain::getKeychain($id, $password_hash);
         if($keychain === false) return 2; // Incorrect password
 
-        self::$current_user = new User($id, $keychain);
+        self::$current_user = new User($keychain);
         self::$current_user->model->getKeychain()->updateSession($remember);
 
         return 0; //OK
@@ -45,5 +50,13 @@ class User{
 
     public static function getCurrentUser(){
         return self::$current_user;
+    }
+
+    public static function start(){
+
+        $keychain = Keychain::getKeychainBySession();
+        if($keychain === false) return; // Incorrect password
+
+        self::$current_user = new User($keychain);
     }
 }

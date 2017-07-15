@@ -11,10 +11,9 @@ class Keychain{
         $this->model = new Model_Keychain($id, $key);
     }
 
-    public function resetSession(){
+    public function getId(){
 
-        $this->model->resetSession();
-        setcookie("session_code", "", 1);
+        return $this->model->getId();
     }
 
     public function updateSession($remember = false){
@@ -25,13 +24,21 @@ class Keychain{
 
         $domain = ($_SERVER['HTTP_HOST'] !== "localhost") ? $_SERVER['HTTP_HOST'] : false;
 
-        setcookie("session_id", $this->model->getId(), time() + 3600 * 24 * 30, "/", $domain, false, true);
-        setcookie("session_code", $code, $remember ? (time() + 3600 * 24 * 30) : 0, "/", $domain, false, true);
+        Util::sendCookie(User::$cookie_name['session_id'], $this->model->getId(), time() + 3600 * 24 * 30);
+        Util::sendCookie(User::$cookie_name['session_code'], $code, $remember ? (time() + 3600 * 24 * 30) : 0);
     }
 
-    public static function getKeychain($id, $password_hash){
+    public static function resetSession($id){
 
-        $key = Model_Keychain::getKey($id);
+        Model_Keychain::resetSession($id);
+
+        $domain = ($_SERVER['HTTP_HOST'] !== "localhost") ? $_SERVER['HTTP_HOST'] : false;
+        Util::sendCookie(User::$cookie_name['session_code'], "", false);
+    }
+
+    public static function getKeychain($id, $password_hash, $by_session = false){
+
+        $key = Model_Keychain::getKey($id, $by_session ? "session" : "user");
 
         if(is_null($key)) return false;
 
@@ -46,5 +53,20 @@ class Keychain{
         $key = openssl_pkey_get_private($key) or Util::opensslDie(__FILE__, __LINE__);
 
         return new Keychain($id, $key);
+    }
+
+    public static function getKeychainBySession(){
+
+        if(!isset($_COOKIE[User::$cookie_name['session_id']])) return false;
+        if(!isset($_COOKIE[User::$cookie_name['session_code']])) return false;
+
+        $id = $_COOKIE[User::$cookie_name['session_id']];
+        $code = $_COOKIE[User::$cookie_name['session_code']];
+
+        $keychain = self::getKeychain($id, $code, true);
+
+        if($keychain === false) self::resetSession($id);
+
+        return $keychain;
     }
 }

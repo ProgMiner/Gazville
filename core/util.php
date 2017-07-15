@@ -2,6 +2,16 @@
 
 abstract class Util{
 
+    public static function sendCookie($name, $value = "", $duration = 0, $path = "/", $domain = false){
+        
+        if($domain === false) $domain = ($_SERVER['HTTP_HOST'] !== "localhost") ? $_SERVER['HTTP_HOST'] : false;
+
+        if($duration === false) $duration = 1;
+        else if($duration !== 0) $duration += time();
+
+        setcookie($name, $value, $duration, $path, $domain, false, true);
+    }
+
     public static function getRealIPAddress(){
 
         if(!empty($_SERVER['HTTP_CLIENT_IP'])) $ip = $_SERVER['HTTP_CLIENT_IP']; // check ip from share internet

@@ -2,12 +2,10 @@
 
 class Model_User extends Model{
 
-    private $id;
     private $keychain;
 
-    public function __construct($id, Keychain $keychain){
+    public function __construct(Keychain $keychain){
 
-        $this->id = $id;
         $this->keychain = $keychain;
     }
 
