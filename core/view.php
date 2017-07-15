@@ -3,7 +3,7 @@
 class View{
 
     public static $default_view = "index.php";
-    public static $charset = "utf-8";
+    public static $charset = "utf8";
     
     private $data;
     private $view;

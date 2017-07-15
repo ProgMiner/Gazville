@@ -14,9 +14,7 @@ class DBSingleton{
                 die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
 
             $charset = View::$charset;
-            self::$mysqli->query("set character_set_client='{$charset}'"); 
-            self::$mysqli->query("set character_set_results='{$charset}'"); 
-            self::$mysqli->query("set collation_connection='{$charset}_general_ci'");
+            self::$mysqli->query("SET NAMES '{$charset}'");
 
         }
         return self::$mysqli;
