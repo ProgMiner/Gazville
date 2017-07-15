@@ -17,7 +17,7 @@ class User{
 
     private function __construct($id, $keychain){
 
-        $this->module = new Model_User($id, $keychain);
+        $this->model = new Model_User($id, $keychain);
     }
 
     public function logout(){
@@ -25,7 +25,7 @@ class User{
         //
     }
 
-    public static function login($login, $password_hash){
+    public static function login($login, $password_hash, $remember = false){
 
         $id = Model_User::getId($login);
         if($id === false) return 1; // Incorrect login
@@ -34,6 +34,7 @@ class User{
         if($keychain === false) return 2; // Incorrect password
 
         self::$current_user = new User($id, $keychain);
+        self::$current_user->model->getKeychain()->updateSession($remember);
 
         return 0; //OK
     }

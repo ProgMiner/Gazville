@@ -4,6 +4,8 @@ class Model_Keychain extends Model{
 
     private $id;
     private $key;
+    private $keys;
+    private $keychainChanged = true;
 
     public function __construct($id, $key){
 
@@ -12,6 +14,50 @@ class Model_Keychain extends Model{
     }
 
     public function getData(){}
+
+    public function getId(){
+
+        return $this->id;
+    }
+
+    public function resetSession(){
+
+        $stmt = db()->prepare("DELETE FROM `keys` WHERE (`owner` = ? AND `type` = 'session') LIMIT 1")
+            or Util::mysqlDie(db(), __FILE__, __LINE__);
+
+        $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
+        $id = $this->id;
+
+        $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+
+        $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+    }
+
+    public function updateSession($code){
+
+        $this->resetSession();
+
+        $stmt = db()->prepare("INSERT INTO `keys` VALUES (?, ?, 'session', ?)")
+            or Util::mysqlDie(db(), __FILE__, __LINE__);
+
+        $stmt->bind_param("ssi", $hash, $key, $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
+
+        $key = "";
+        $hash = "";
+        $id = $this->id;
+        {
+            openssl_pkey_export($this->key, $pem, "", User::$openssl_config)
+                or Util::opensslDie(__FILE__, __LINE__);
+
+            $hash = md5($pem);
+            $key = openssl_encrypt($pem, User::$openssl_aes, $code, 0, hex2bin($hash))
+                or Util::opensslDie(__FILE__, __LINE__);
+        }
+
+        $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+
+        $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+    }
 
     public static function getKey($owner, $type = "user", $hash = NULL){
 

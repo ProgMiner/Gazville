@@ -8,7 +8,25 @@ class Keychain{
 
     private function __construct($id, $key){
 
-        $this->module = new Model_Keychain($id, $key);
+        $this->model = new Model_Keychain($id, $key);
+    }
+
+    public function resetSession(){
+
+        $this->model->resetSession();
+        setcookie("session_code", "", 1);
+    }
+
+    public function updateSession($remember = false){
+
+        $code = md5(time() . $this->model->getId() . rand());
+
+        $this->model->updateSession($code);
+
+        $domain = ($_SERVER['HTTP_HOST'] !== "localhost") ? $_SERVER['HTTP_HOST'] : false;
+
+        setcookie("session_id", $this->model->getId(), time() + 3600 * 24 * 30, "/", $domain, false, true);
+        setcookie("session_code", $code, $remember ? (time() + 3600 * 24 * 30) : 0, "/", $domain, false, true);
     }
 
     public static function getKeychain($id, $password_hash){

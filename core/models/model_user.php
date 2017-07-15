@@ -13,6 +13,11 @@ class Model_User extends Model{
 
     public function getData(){}
 
+    public function getKeychain(){
+
+        return $this->keychain;
+    }
+
     public static function getId($login){
 
         $stmt = db()->prepare("SELECT `id` FROM `users` WHERE `login` = ? LIMIT 1")
