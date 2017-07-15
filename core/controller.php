@@ -2,9 +2,9 @@
 
 abstract class Controller {
     
-    private $arguments;
-    private $model;
-    private $view;
+    protected $arguments;
+    protected $model;
+    protected $view;
     
     public function __construct(array $args){
 
