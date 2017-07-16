@@ -1,5 +1,7 @@
 <?
 
+Route::loadModel("Page");
+
 class Controller_Page extends Controller{
 
     public function __construct(array $args){
@@ -27,5 +29,12 @@ class Controller_Page extends Controller{
 
         $this->view = new View($data, "page.php");
         $this->view->place();
+    }
+
+    public static function preroute($url){
+
+        if($url === "/404") $url = "/page/2";
+
+        return $url;
     }
 }

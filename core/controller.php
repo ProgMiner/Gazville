@@ -12,4 +12,5 @@ abstract class Controller {
     }
     
     public abstract function start();
+    public static function preroute($url){return $url;}
 }
