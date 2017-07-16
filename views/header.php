@@ -1,4 +1,4 @@
-<?header("Content-Type: text/html, charset=" . View::$charset);?>
+<?header("Content-Type: text/html; charset=" . View::$charset);?>
 <!DOCTYPE html>
 <html>
     <head>
