@@ -18,7 +18,7 @@ abstract class Route{
 
     public static function loadModel($model){
 
-        include_once(self::$path['model'] . self::$prefix['model'] . $model . ".php");
+        include_once(strtolower(self::$path['model'] . self::$prefix['model'] . $model . ".php"));
     }
 
     public static function findController($controller){
