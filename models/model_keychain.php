@@ -13,8 +13,6 @@ class Model_Keychain extends Model{
         $this->key = $key;
     }
 
-    public function getData(){}
-
     public function getId(){
 
         return $this->id;

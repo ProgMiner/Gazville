@@ -9,14 +9,17 @@ class Model_User extends Model{
         $this->keychain = $keychain;
     }
 
-    public function getData(){}
+    public function getId(){
+
+        return $this->keychain->getId();
+    }
 
     public function getKeychain(){
 
         return $this->keychain;
     }
 
-    public static function getId($login){
+    public static function getIdByLogin($login){
 
         $stmt = db()->prepare("SELECT `id` FROM `users` WHERE `login` = ? LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);

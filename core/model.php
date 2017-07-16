@@ -1,5 +1,5 @@
 <?
 abstract class Model{
 
-    public abstract function getData();
+    public function getData(){ return array(); }
 }

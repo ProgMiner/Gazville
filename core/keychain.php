@@ -1,6 +1,6 @@
 <?
 
-include_once(strtolower(Route::$path['model'] . Route::$prefix['model'] . "Keychain.php"));
+Route::loadModel("Keychain");
 
 class Keychain{
 
@@ -31,6 +31,8 @@ class Keychain{
     public static function resetSession($id){
 
         Model_Keychain::resetSession($id);
+
+        if($id !== User::getCurrentUser()->getId()) return;
 
         $domain = ($_SERVER['HTTP_HOST'] !== "localhost") ? $_SERVER['HTTP_HOST'] : false;
         Util::sendCookie(User::$cookie_name['session_code'], "", false);

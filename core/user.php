@@ -1,6 +1,6 @@
 <?
 
-include_once(strtolower(Route::$path['model'] . Route::$prefix['model'] . "User.php"));
+Route::loadModel("User");
 
 class User{
 
@@ -25,17 +25,20 @@ class User{
         $this->model = new Model_User($keychain);
     }
 
-    public static function logout($id){
+    public function getId(){
 
-        self::$current_user->model->getKeychain()->getId();
+        return $this->model->getId();
+    }
+
+    public static function logout($id = false){
         
+        if($id === false) $id = self::$current_user->getId();
         Keychain::resetSession($id);
-
     }
 
     public static function login($login, $password_hash, $remember = false){
 
-        $id = Model_User::getId($login);
+        $id = Model_User::getIdByLogin($login);
         if($id === false) return 1; // Incorrect login
 
         $keychain = Keychain::getKeychain($id, $password_hash);
