@@ -25,9 +25,12 @@ class User{
         $this->model = new Model_User($keychain);
     }
 
-    public function logout(){
+    public static function logout($id){
 
-        //
+        self::$current_user->model->getKeychain()->getId();
+        
+        Keychain::resetSession($id);
+
     }
 
     public static function login($login, $password_hash, $remember = false){
