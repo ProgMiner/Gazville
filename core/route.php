@@ -71,13 +71,8 @@ abstract class Route{
         if(!empty($args[1])) $controller_name = $args[1];
         $controller_name = self::$prefix['controller'] . $controller_name;
 
-        if(($controller_name = self::findController($controller_name)) === false){
-
-            header("Location: /404");
-            die();
-        }
-
-        Util::log("Controller: {$controller_name}", __FILE__, __LINE__);
+        if(($controller_name = self::findController($controller_name)) === false)
+            Controller_Page::page404();
 
         $controller = new $controller_name($args);
         $controller->start();
