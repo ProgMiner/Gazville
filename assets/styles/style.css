@@ -277,7 +277,7 @@ div.posttitle + a{
     color: #333;
 }
 div.postcontent{
-    margin-top: 15px;
+    margin: 15px 0px;
 }
 nav.navigation.pagination{
     display: block;
