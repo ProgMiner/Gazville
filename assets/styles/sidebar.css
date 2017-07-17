@@ -39,7 +39,7 @@
     color: #000;
     transition: 0.35s;
 
-    background: url('/assets/images/sidebar.svg') 0% 0% no-repeat;
+    background: url('/assets/images/sidebar.svg') 0% 6% no-repeat;
     background-size: 48px auto;
 }
 #sidebar > a:hover{
@@ -89,32 +89,36 @@ a#sidebarexpand:after{
 }
 
 #sidebar > a.news{
-    background-position-y: 10%;
+    background-position-y: 15.5%;
 }
 #sidebar > a.messages{
-    background-position-y: 21%;
+    background-position-y: 25%;
 }
 #sidebar > a.friends{
-    background-position-y: 31%;
+    background-position-y: 34%;
 }
 #sidebar > a.groups{
-    background-position-y: 41%;
+    background-position-y: 42%;
 }
 #sidebar > a.photo{
     background-position-y: 51%;
 }
 #sidebar > a.audio{
-    background-position-y: 61%;
+    background-position-y: 59%;
 }
 #sidebar > a.video{
-    background-position-y: 71%;
+    background-position-y: 68%;
 }
 #sidebar > a.games{
-    background-position-y: 81%;
+    background-position-y: 77%;
 }
 
 #sidebar > a.login{
     background-position-y: 101%;
+}
+
+#sidebar > a.logout{
+    background-position-y: 94%;
 }
 
 #sidebar > a.search{
