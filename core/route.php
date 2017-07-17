@@ -1,7 +1,7 @@
 <?
 abstract class Route{
 
-    public static $default_controller_name = "Page";
+    public static $default_controller_name = "Home";
 
     public static $path = array(
             'view' => "views/",
@@ -72,7 +72,7 @@ abstract class Route{
         $controller_name = self::$prefix['controller'] . $controller_name;
 
         if(($controller_name = self::findController($controller_name)) === false)
-            Controller_Page::page404();
+            Util::error404();
 
         $controller = new $controller_name($args);
         $controller->start();

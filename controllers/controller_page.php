@@ -16,7 +16,7 @@ class Controller_Page extends Controller{
 
         $data = $this->model->getData();
 
-        if(count($data) === 0) self::page404();
+        if(count($data) === 0) Util::error404();
 
         $this->view = new View($data, "page.php");
         $this->view->place();
@@ -34,15 +34,5 @@ class Controller_Page extends Controller{
             }
         
         return $url;
-    }
-
-    public static function page404(){
-
-        header("HTTP/1.1 404 Not Found");
-        header("Status: 404 Not Found");
-        header("Location: /404");
-
-        Util::_die("404 Not Found", __FILE__, __LINE__);
-
     }
 }

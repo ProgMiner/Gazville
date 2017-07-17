@@ -12,6 +12,24 @@ abstract class Util{
         setcookie($name, $value, $duration, $path, $domain, false, true);
     }
 
+    public static function error404(){
+
+        header("HTTP/1.1 404 Not Found");
+        header("Status: 404 Not Found");
+        header("Location: /404");
+
+        Util::_die("404 Not Found", __FILE__, __LINE__);
+    }
+
+    public static function redirect($location){
+
+        header("HTTP/1.1 301 Moved Permanently");
+        header("Status: 301 Moved Permanently");
+        header("Location: {$location}");
+
+        Util::_die("301 Moved Permanently to {$location}", __FILE__, __LINE__);
+    }
+
     public static function getRealIPAddress(){
 
         if(!empty($_SERVER['HTTP_CLIENT_IP'])) $ip = $_SERVER['HTTP_CLIENT_IP']; // check ip from share internet
