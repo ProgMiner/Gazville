@@ -4,7 +4,7 @@
 define("DEBUG", true);
 require_once("config.php");
 
-ini_set("display_errors", DEBUD ? 1 : 0);
+ini_set("display_errors", DEBUG ? 1 : 0);
 error_reporting(DEBUG ? E_ALL : 0);
 
 // Core files
