@@ -34,11 +34,13 @@
         </div>
         <?$this->placeView("sidebar.php");?>
         <div id="center">
-            <div id="header">
+            <div id="header"<?if(!User::isUserLoggedIn()):?> class="slice"<?endif;?>>
                 <a class="vk" href="https://vk.com/club70404044" target="_blank">Группа</a><!--
              --><a class="info" href="/info">Информация</a><!--
-             --><a class="events" href="/events">События</a><!--
-             --><a class="rubrics" href="/c/rubrics">Рубрики</a><!--
+                 --><?if(User::isUserLoggedIn()):?><!--
+                 --><a class="events" href="/events">События</a><!--
+                 --><a class="rubrics" href="/c/rubrics">Рубрики</a><!--
+             --><?endif;?><!--
              --><a class="feedback" href="/feedback">Обратная связь</a>
             </div>
             <div id="content">
