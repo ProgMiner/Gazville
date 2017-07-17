@@ -331,6 +331,7 @@ nav.navigation.pagination > .nav-links .page-numbers.next, nav.navigation.pagina
     color: #333;
 }
 form.searchform{
+    display: block;
     overflow: auto;
     position: relative;
     padding-right: 31px;
