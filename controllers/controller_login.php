@@ -4,15 +4,21 @@ class Controller_Login extends Controller{
 
     public function start(){
 
-    	if(User::isUserLoggedIn()) {
-    		Util::redirect("/");
-    	}
+        $data = array();
+        while(isset($_POST['login']) && isset($_POST['password']) && 
+            empty($_POST['login']) && empty($_POST['password'])){
 
-        if(isset($_POST['login']) && isset(md5($_POST['password'])) {
-        	User::login();
+            $error = User::login($_POST['login'], md5($_POST['password']), isset($_POST['remember']));
+
+            if($error === 0) break;
+
+            $data['error'] = $error;
+            break;
         }
-    	
-    	$this->view = new View("login.php");
+
+        if(User::isUserLoggedIn()) Util::redirect("/");
+        
+        $this->view = new View($data, "login.php");
         $this->view->place();
     }
 
