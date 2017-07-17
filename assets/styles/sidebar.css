@@ -114,7 +114,7 @@ a#sidebarexpand:after{
 }
 
 #sidebar > a.login{
-    background-position-y: 101%;
+    background-position-y: 85%;
 }
 
 #sidebar > a.logout{
