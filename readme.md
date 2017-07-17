@@ -1,3 +1,3 @@
 # TODO
 
- - Add Login/Register controllers
+ - Add Register controller
