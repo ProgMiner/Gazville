@@ -30,6 +30,11 @@ class User{
         return $this->model->getId();
     }
 
+    public function getKeychain(){
+
+        return $this->model->getKeychain();
+    }
+
     public static function logout($id = false){
         
         if($id === false) $id = self::$current_user->getId();

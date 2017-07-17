@@ -8,8 +8,7 @@ class Controller_Page extends Controller{
 
         parent::__construct($args);
 
-        if(!isset($this->arguments[3]) && empty($this->arguments[2]) || !isset($this->arguments[2])) $this->arguments[2] = 1;
-        $this->model = new Model_Page($this->arguments[2]);
+        $this->model = new Model_Page($this->argument[2]);
     }
 
     public function start(){

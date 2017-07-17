@@ -12,22 +12,22 @@ abstract class Util{
         setcookie($name, $value, $duration, $path, $domain, false, true);
     }
 
-    public static function error404(){
+    public static function error404($file = __FILE__, $line = __LINE__){
 
         header("HTTP/1.1 404 Not Found");
         header("Status: 404 Not Found");
         header("Location: /404");
 
-        Util::_die("404 Not Found", __FILE__, __LINE__);
+        Util::_die("404 Not Found", $file, $line);
     }
 
-    public static function redirect($location){
+    public static function redirect($location, $file = __FILE__, $line = __LINE__){
 
-        header("HTTP/1.1 301 Moved Permanently");
-        header("Status: 301 Moved Permanently");
+        header("HTTP/1.1 302 Moved Temporarily");
+        header("Status: 302 Moved Temporarily");
         header("Location: {$location}");
 
-        Util::_die("301 Moved Permanently to {$location}", __FILE__, __LINE__);
+        Util::_die("302 Moved Temporarily to {$location}", $file, $line);
     }
 
     public static function getRealIPAddress(){

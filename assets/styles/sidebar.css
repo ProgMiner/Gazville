@@ -20,6 +20,9 @@
 #sidebar.expandedsidebar:hover{
     background-color: rgba(255, 255, 255, 0.85);
 }
+#sidebar > *{
+    display: none;
+}
 #sidebar > a{
     display: block;
     width: 100%;

@@ -2,13 +2,13 @@
 
 abstract class Controller {
     
-    protected $arguments;
+    protected $argument;
     protected $model;
     protected $view;
     
     public function __construct(array $args){
 
-        $this->arguments = $args;
+        $this->argument = $args;
     }
     
     public abstract function start();

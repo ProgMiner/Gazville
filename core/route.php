@@ -72,7 +72,9 @@ abstract class Route{
         $controller_name = self::$prefix['controller'] . $controller_name;
 
         if(($controller_name = self::findController($controller_name)) === false)
-            Util::error404();
+            Util::error404(__FILE__, __LINE__);
+
+        Util::log("Controller: {$controller_name}", __FILE__, __LINE__);
 
         $controller = new $controller_name($args);
         $controller->start();

@@ -5,6 +5,7 @@ Route::loadModel("Keychain");
 class Keychain{
 
     private $model;
+    private $tokenSecret;
 
     private function __construct($id, $key){
 
@@ -14,6 +15,38 @@ class Keychain{
     public function getId(){
 
         return $this->model->getId();
+    }
+
+    private function getTokenSecret(){
+
+        $secret = "";
+        if(!is_null($this->tokenSecret)) $secret = $this->tokenSecret;
+        else{
+
+            $key = Model_Keychain::getKey($this->getId(), "session");
+            $key = $key['key'];
+
+            $this->tokenSecret = $secret = md5($key);
+        }
+
+        return $secret;
+    }
+
+    public function generateToken($salt = false){
+
+        if($salt === false) $salt = time();
+        $secret = $this->getTokenSecret();
+
+        $token = "{$salt}:" . md5("{$salt}:{$secret}");
+        return $token;
+    }
+
+    public function checkToken($token){
+
+        $salt = explode(":", $token);
+        $salt = $salt[0];
+
+        return $token === $this->generateToken($salt);
     }
 
     public function updateSession($remember = false){
