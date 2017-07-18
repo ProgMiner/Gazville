@@ -76,7 +76,7 @@ class Keychain{
 
         Model_Keychain::resetSession($id);
 
-        if($id !== User::getCurrentUser()->getId()) return;
+        if($id !== User::getCurrentUserId()) return;
 
         $domain = ($_SERVER['HTTP_HOST'] !== "localhost") ? $_SERVER['HTTP_HOST'] : false;
         Util::sendCookie(User::$cookie_name['session_code'], "", false);

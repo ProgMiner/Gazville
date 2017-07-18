@@ -3,8 +3,8 @@ class Controller_Login extends Controller{
 
     private function logout(){
 
-        if(isset($_POST['token']) && User::getCurrentUser()->getKeychain()->checkToken($_POST['token']))
-            User::logout(User::getCurrentUser()->getId());
+        if(isset($_POST['token']) && User::isUserLoggedIn() && User::getCurrentUser()->getKeychain()->checkToken($_POST['token']))
+            User::logout(User::getCurrentUserId());
 
         Util::redirect("/", __FILE__, __LINE__);
     }

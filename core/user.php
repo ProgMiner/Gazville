@@ -95,16 +95,19 @@ class User{
 
     public static function getCurrentUserId(){
 
+        if(!self::isUserLoggedIn()) return 0;
         return self::$current_user->getId();
     }
 
     public static function getCurrentUserData($fields = false){
 
+        if(!self::isUserLoggedIn()) return array();
         return self::$current_user->getData($fields);
     }
 
     public static function isCurrentUserCan($permission){
 
+        if(!self::isUserLoggedIn()) return false;
         return self::$current_user->isUserCan($permission);
     }
 
