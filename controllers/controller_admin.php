@@ -34,9 +34,9 @@ class Controller_Admin extends Controller{
         Util::redirect("/404", __FILE__, __LINE__); 
 
         if(!(isset($this->argument[2]) || empty($this->argument[2]) ||
-        !method_exists($this, 'hub')) $this->argument[2] = "hub";
-        
+        !method_exists($this, $this->argument[2])) $this->argument[2] = "hub";
 
+        $this->$method();
     }
 
 }
