@@ -7,9 +7,7 @@ class Controller_Admin extends Controller{
 
         $data = array();
 
-
-
-
+        //
 
         $this->view = new View($data, "admin/hub.php");
         $this->view->place();
@@ -20,9 +18,7 @@ class Controller_Admin extends Controller{
 
         $data = array();
 
-
-
-
+        //
 
         $this->view = new View($data, "admin/users.php");
         $this->view->place();
@@ -30,8 +26,7 @@ class Controller_Admin extends Controller{
 
     public function start(){
 
-        if(User::isCurrentUserCan(User::$permission['adminpanel'])) 
-            Util::error404(__FILE__, __LINE__); 
+        if(!User::isCurrentUserCan(User::$permission['adminpanel'])) Util::error404(__FILE__, __LINE__); 
 
         if(!isset($this->argument[2]) || empty($this->argument[2]) ||
             !method_exists($this, $this->argument[2])) $this->argument[2] = "hub";
