@@ -17,7 +17,7 @@ class Controller_Page extends Controller{
 
         if(count($data) === 0) Util::error404();
 
-        $this->view = new View($data, "page.php");
+        $this->view = new View($data, "page");
         $this->view->place();
     }
 

@@ -2,24 +2,30 @@
 
 class View{
 
-    public static $default_view = "index.php";
+    public static $default_view = "index";
     public static $charset = "utf8";
     
     private $data;
     private $view;
+    private $path;
     
     public function __construct(array $data = array(), $view = null){
 
-        if(is_null($view)) $view = View::$default_view;
-
         $this->data = $data;
-        $this->view = $view;
+
+        while(!preg_match("/^([\s\S]*\/)?([\s\S]+?)(\.php)?$/", $view, $matches)) $view = self::$default_view;
+
+        $this->path = Route::$path['view'] . $matches[1];
+        $this->view = $matches[2];
     }
 
     public function placeView($view){
 
+        while(!preg_match("/^([\s\S]+?)(\.php)?$/", $view, $matches)) $view = self::$default_view;
+        $view = $matches[1];
+
         extract($this->data);
-        include(Route::$path['view'] . $view);
+        include("{$this->path}{$view}.php");
     }
 
     public function place(){

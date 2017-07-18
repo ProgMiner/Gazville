@@ -9,7 +9,7 @@ class Controller_Admin extends Controller{
 
         //
 
-        $this->view = new View($data, "admin/hub.php");
+        $this->view = new View($data, "admin/hub");
         $this->view->place();
 
     }
@@ -20,7 +20,7 @@ class Controller_Admin extends Controller{
 
         //
 
-        $this->view = new View($data, "admin/users.php");
+        $this->view = new View($data, "admin/users");
         $this->view->place();
     }
 

@@ -27,7 +27,7 @@ class Controller_Login extends Controller{
 
         if(User::isUserLoggedIn()) Util::redirect("/", __FILE__, __LINE__);
         
-        $this->view = new View($data, "login.php");
+        $this->view = new View($data, "login");
         $this->view->place();
     }
 
