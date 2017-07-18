@@ -3,7 +3,7 @@
 
 class Controller_Admin extends Controller{
 
-        public function hub(){
+    public function hub(){
 
         $data = array();
 
@@ -30,8 +30,8 @@ class Controller_Admin extends Controller{
 
     public function start(){
 
-        if(User::isUserCan(User::$permission['adminpanel'])) 
-        Util::redirect("/404", __FILE__, __LINE__); 
+        if(User::isCurrentUserCan(User::$permission['adminpanel'])) 
+            Util::error404(__FILE__, __LINE__); 
 
         if(!isset($this->argument[2]) || empty($this->argument[2]) ||
             !method_exists($this, $this->argument[2])) $this->argument[2] = "hub";
