@@ -17,6 +17,17 @@ class Keychain{
         return $this->model->getId();
     }
 
+    public function decryptData($encrypted, $hash, $keyHash){
+
+        $key = $this->model->getData();
+        $key = $key[$keyHash];
+
+        openssl_private_decrypt($encrypted, $data, $key) or Util::opensslDie(__FILE__, __LINE__);
+
+        if(md5($data) !== $hash) return false;
+        return $data;
+    }
+
     private function getTokenSecret(){
 
         $secret = "";

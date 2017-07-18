@@ -12,8 +12,13 @@ class User{
         );
 
     public static $cookie_name = array(
-            'session_id'   => "session_id",
-            'session_code' => "session_code"
+            'session_id'    => "session_id",
+            'session_code'  => "session_code"
+        );
+
+    public static $permission = array(
+            'login'         => 1,
+            'adminpanel'    => 2
         );
 
     private static $current_user;
@@ -33,6 +38,29 @@ class User{
     public function getKeychain(){
 
         return $this->model->getKeychain();
+    }
+
+    public function getData($fields = false){
+
+        $data = $this->model->getData();
+
+        if($fields === false) return $data;
+        if(is_string($fields)) return $data[$fields];
+        if(!is_array($fields)) return false;
+
+        $ret = array();
+        foreach($fields as $key)
+            $ret[$key] = $data[$key];
+
+        return $ret;
+    }
+
+    public function isUserCan($permission){
+
+        $permissions = $this->model->getData();
+        $permissions = $permissions['permissions'];
+
+        return ($permissions & $permission) !== 0;
     }
 
     public static function logout($id = false){
@@ -56,11 +84,28 @@ class User{
     }
 
     public static function isUserLoggedIn(){
+
         return !is_null(self::$current_user);
     }
 
     public static function getCurrentUser(){
+
         return self::$current_user;
+    }
+
+    public static function getCurrentUserId(){
+
+        return self::$current_user->getId();
+    }
+
+    public static function getCurrentUserData($fields = false){
+
+        return self::$current_user->getData($fields);
+    }
+
+    public static function isCurrentUserCan($permission){
+
+        return self::$current_user->isUserCan($permission);
     }
 
     public static function start(){

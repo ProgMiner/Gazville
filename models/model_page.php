@@ -11,6 +11,8 @@ class Model_Page extends Model{
 
     public function getData(){
 
+        if(!$this->changed) return $this->data;
+
         $stmt = db()->prepare("SELECT `title`, `content`, `author` FROM `pages` WHERE `id` = ? LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
@@ -21,7 +23,13 @@ class Model_Page extends Model{
         $result = $stmt->get_result() or Util::mysqlDie($stmt, __FILE__, __LINE__);
         $ret = $result->fetch_assoc();
 
+        if($stmt->errno !== 0) Util::mysqlDie($stmt, __FILE__, __LINE__);
+
         $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+
+        $this->data = $ret;
+        $this->changed = false;
+
         return $ret;
     }
 

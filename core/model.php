@@ -1,5 +1,8 @@
 <?
 abstract class Model{
 
-    public function getData(){ return array(); }
+    protected $data;
+    protected $changed = true;
+
+    public abstract function getData();
 }
