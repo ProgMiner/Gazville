@@ -116,6 +116,7 @@ class Keychain{
         return $keychain;
     }
 
+    // http://php.net/manual/ru/function.openssl-public-encrypt.php#56449
     public static function encryptRSA($source, $key, &$ok = null, $private = false){
 
         $maxlength = openssl_pkey_get_details($key);
