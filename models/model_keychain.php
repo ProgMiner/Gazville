@@ -36,7 +36,7 @@ class Model_Keychain extends Model{
         if(!$this->changed) return $this->data;
 
         $ret = array(
-                $this->keyHash => $this->key;
+                $this->keyHash => $this->key
             );
 
         $stmt = db()->prepare("SELECT `hash`, `key` FROM `keys` WHERE (`owner` = ? AND `type` = 'group')")
