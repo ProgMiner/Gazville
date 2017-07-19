@@ -19,7 +19,22 @@ class View{
         $this->view = $matches[2];
     }
 
-    public function placeView($view){
+    private function setData($data, $value = ""){
+
+        if(is_array($data)){
+
+            foreach($data as $key => $value)
+                $this->data[$key] = $value;
+
+            return $this->data;
+        }
+
+        $this->data[$data] = $value;
+
+        return $this->data;
+    }
+
+    private function placeView($view){
 
         while(!preg_match("/^([\s\S]+?)(\.php)?$/", $view, $matches)) $view = self::$default_view;
         $view = $matches[1];

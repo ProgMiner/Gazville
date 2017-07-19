@@ -1,10 +1,33 @@
-<?$this->placeView("header.php");?>
+<?
+    $this->setData("title", "Вход");
+    $this->placeView("header.php");
 
-<div class="post" style="background-size: 100%;">
-    <div class="postcenter" style="padding: 5px 20px; margin: 0px;">
+    if(isset($error))
+        switch ($error) {
+            case 1:
+                $error = "Несуществующий логин!";
+                break;
+            case 2:
+                $error = "Неверный пароль!";
+                break;
+            default:
+                unset($error);
+        }
+?>
+
+<?if(isset($error)):?>
+<div class="page">
+    <div class="postcenter error">
+        <div class="postcontent">
+            Вход не удался: <b><?=$error?></b>
+        </div>
+    </div>
+</div>
+<?endif;?>
+<div class="page">
+    <div class="postcenter">
         <div class="posttitle">Вход</div>
         <div class="postcontent">
-            <?if(isset($error)):?><?=$error?><?endif;?>
             <form method="POST" action="/login" id="loginform">
                 <label for="loginfield">Логин: <input type="text" name="login" id="loginfield" required></label>
                 <label for="passwordfield">Пароль: <input type="password" name="password" id="passwordfield" required></label>
