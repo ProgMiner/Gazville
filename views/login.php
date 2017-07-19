@@ -2,6 +2,14 @@
     $this->setData("title", "Вход");
     $this->placeView("header.php");
 
+    $login = "";
+    if(isset($_COOKIE[User::$cookie_name['session_id']])){
+
+        $id = $_COOKIE[User::$cookie_name['session_id']];
+        $login = Model_User::getPublicData($id);
+        $login = $login['login'];
+    }
+
     if(isset($error))
         switch ($error) {
             case 1:
@@ -29,9 +37,9 @@
         <div class="posttitle">Вход</div>
         <div class="postcontent">
             <form method="POST" action="/login" id="loginform">
-                <label for="loginfield">Логин: <input type="text" name="login" id="loginfield" required></label>
+                <label for="loginfield">Логин: <input type="text" name="login" id="loginfield" value="<?=$login?>" required></label>
                 <label for="passwordfield">Пароль: <input type="password" name="password" id="passwordfield" required></label>
-                <label for="remember" style="cursor: pointer;">Запомнить пароль <span class="checkbox"><input type="checkbox" name="remember" id="remember"><span></span></label>
+                <label for="remember" style="cursor: pointer;">Запомнить пароль <span class="checkbox"><input type="checkbox" name="remember" id="remember" checked><span></span></label>
                 <input type="submit" value="Войти">
             </form>
         </div>
