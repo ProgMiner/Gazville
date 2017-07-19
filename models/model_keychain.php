@@ -4,11 +4,15 @@ class Model_Keychain extends Model{
 
     private $id;
     private $key;
+    private $keyHash;
 
     public function __construct($id, $key){
 
         $this->id = $id;
         $this->key = $key;
+
+        openssl_pkey_export($key, $pem, "", User::$openssl_config) or Util::opensslDie(__FILE__, __LINE__);
+        $this->keyHash = md5($pem);
     }
 
     public function getId(){
@@ -18,17 +22,22 @@ class Model_Keychain extends Model{
 
     private function decryptKey($key, $hash){
 
-        openssl_private_decrypt($key, $pem, $this->key) or Util::opensslDie(__FILE__, __LINE__);
+        $pem = Keychain::decryptRSA($key, $this->key, $ok);
+        if(!$ok) Util::opensslDie(__FILE__, __LINE__);
 
         if(md5($pem) !== $hash) return false;
 
-        $key = openssl_pkey_get_private($key) or Util::opensslDie(__FILE__, __LINE__);
+        $key = openssl_pkey_get_private($pem) or Util::opensslDie(__FILE__, __LINE__);
         return $key;
     }
 
     public function getData(){
 
         if(!$this->changed) return $this->data;
+
+        $ret = array(
+                $this->keyHash => $this->key;
+            );
 
         $stmt = db()->prepare("SELECT `hash`, `key` FROM `keys` WHERE (`owner` = ? AND `type` = 'group')")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
@@ -38,7 +47,6 @@ class Model_Keychain extends Model{
 
         $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
         $result = $stmt->get_result() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-        $ret = array();
         
         while($row = $result->fetch_assoc())
             if(($ret[$row['hash']] = $this->decryptKey($row['key'], $row['hash'])) === false) unset($ret[$row['hash']]);
