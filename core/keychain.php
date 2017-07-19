@@ -115,4 +115,42 @@ class Keychain{
 
         return $keychain;
     }
+
+    public static function encryptRSA($source, $key, &$ok = null, $private = false){
+
+        $maxlength = openssl_pkey_get_details($key);
+        $maxlength = $maxlength['bits'] / 8 - 11;
+
+        $ret = "";
+        do{
+            $input = substr($source, 0, $maxlength);
+            if(($source = substr($source, $maxlength)) === false) break;
+
+            if($private) $ok = openssl_private_encrypt($input, $encrypted, $key);
+            else $ok = openssl_public_encrypt($input, $encrypted, $key);
+ 
+            $ret .= $encrypted;
+        }while($ok);
+
+        return $ret;
+    }
+
+    public static function decryptRSA($source, $key, &$ok = null, $public = false){
+
+        $maxlength = openssl_pkey_get_details($key);
+        $maxlength = $maxlength['bits'] / 8;
+
+        $ret = "";
+        do{
+            $input = substr($source, 0, $maxlength);
+            if(($source = substr($source, $maxlength)) === false) break;
+
+            if($public) $ok = openssl_public_decrypt($input, $decrypted, $key);
+            else $ok = openssl_private_decrypt($input, $decrypted, $key);
+
+            $ret .= $decrypted;
+        }while($ok);
+
+        return $ret;
+    }
 }
