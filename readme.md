@@ -31,19 +31,19 @@
 
 + **pages**
   + *int* **id** - Identificator
-  + *text* **url** - Alternative URL for page
+  + *varchar(255)* **url** - Alternative URL for page
   + *text* **title** - Page title
   + *text* **content** - Page content
   + *int* **owner** - Owner's user-id
 
 + **tasks**
   + *int* **id** - Identificator
-  + *varchar(32)* **key** - Required key hash
   + *text* **task** - Task
-  + *int* **initiator** - Task initiator's user-id
+  + *varchar(32)* **key** - Required key hash
   + *enum* **status** - Task status: *waiting*/*processing*
+  + *int* **owner** - Task owner's user-id
 
 + **users**
   + *int* **id** - Identificator
-  + *text* **login** - User's login
+  + *varchar(255)* **login** - User's login
   + *int* **vk_id** - VK.com user-id
