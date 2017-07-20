@@ -1,14 +1,15 @@
 # TODO
 
 + Add Register controller
++ Make admin-panel
 
 # DB Structure
 
 + **keys**
-
+  + *int* **id** - Identificator
   + *varchar(32)* **hash** - Key hash
   + *text* **key** - Encrypted key
-  + *enum* **type** - Key type: *user*/*session*/*group*/*invite*
+  + *enum* **type** - Key type: *user*/*session*/*group*/*invitation*
   + *int* **owner** - Owner's user-id
 
 + **log**
@@ -26,7 +27,7 @@
   + *varchar(32)* **key** - Key hash
   + *varchar(32)* **hash** - Field hash
   + *enum* **type** - Field type: *user*/*group*/*post*
-  + *int* **owner** - Owner's user-id
+  + *int* **owner** - Owner's id
 
 + **pages**
   + *int* **id** - Identificator
@@ -46,4 +47,3 @@
   + *int* **id** - Identificator
   + *text* **login** - User's login
   + *int* **vk_id** - VK.com user-id
-  + *int* **permissions** - User's permissions (bitmask)
