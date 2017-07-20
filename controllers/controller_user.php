@@ -16,6 +16,6 @@ class Controller_User extends Controller{
         if(!preg_match("/^\/(\w{,255})$/", $url, $matches)) return $url;
         if(($id = Model_User::getIdByLogin($matches[1])) === false) return $url;
     
-        return "/{$id}"; 
+        return "/user/{$id}"; 
     }
 }
