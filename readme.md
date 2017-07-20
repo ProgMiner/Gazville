@@ -22,7 +22,7 @@
 
 + **meta**
   + *int* **id** - Identificator
-  + *text* **field** - Field name
+  + *varchar(32)* **field** - Field name
   + *text* **value** - Field value
   + *varchar(32)* **key** - Key hash
   + *varchar(32)* **hash** - Field hash
