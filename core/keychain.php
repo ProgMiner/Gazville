@@ -17,6 +17,17 @@ class Keychain{
         return $this->model->getId();
     }
 
+    public function encryptData($data, $keyHash){
+
+        $key = $this->model->getData();
+        $key = $key[$keyHash];
+
+        $encrypted = self::encryptRSA($data, $key, $ok);
+        if(!$ok) Util::opensslDie(__FILE__, __LINE__);
+
+        return $encrypted;
+    }
+
     public function decryptData($encrypted, $hash, $keyHash){
 
         $key = $this->model->getData();
@@ -134,11 +145,12 @@ class Keychain{
             $ret .= $encrypted;
         }while($ok);
 
-        return $ret;
+        return base64_encode($ret);
     }
 
     public static function decryptRSA($source, $key, &$ok = null, $public = false){
 
+        $source = base64_decode($source);
         $maxlength = openssl_pkey_get_details($key);
         $maxlength = $maxlength['bits'] / 8;
 

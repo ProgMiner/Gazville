@@ -4,20 +4,24 @@ class Model_User extends Model{
 
     protected static $default_data = array(
             'first_name'    => "",
-            'last_name'    => "",
-            'sidebar'    => "111111111"
+            'last_name'     => "",
+            'sidebar'       => 511
         );
 
+    private $id;
     private $keychain;
 
-    public function __construct(Keychain $keychain){
+    public function __construct(Keychain $keychain, $id = null){
+
+        if(is_null($id)) $id = $keychain->getId();
 
         $this->keychain = $keychain;
+        $this->id = $id;
     }
 
     public function getId(){
 
-        return $this->keychain->getId();
+        return $this->id;
     }
 
     public function getKeychain(){
@@ -25,33 +29,45 @@ class Model_User extends Model{
         return $this->keychain;
     }
 
-    public function getData(){
+    public function getData(&$key_hash = null){
 
         if(!$this->changed) return $this->data;
         $id = $this->getId();
 
         $ret = self::$default_data;
 
-        // Getting general data
-
-        $ret = array_replace($ret, self::getPublicData($id));
-
-        // Getting meta-data
-
-        $stmt = db()->prepare("SELECT `field`, `value`, `key`, `hash` FROM `meta` WHERE (`owner` = ? AND `type` = 'user')")
-            or Util::mysqlDie(db(), __FILE__, __LINE__);
-
-        $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
-
-        $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-        $result = $stmt->get_result() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+        { // Getting general data
+    
+            $stmt = db()->prepare("SELECT `login`, `vk_id`, `permissions` FROM `users` WHERE `id` = ? LIMIT 1")
+                or Util::mysqlDie(db(), __FILE__, __LINE__);
+    
+            $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
+    
+            $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+            $result = $stmt->get_result() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+            $ret = array_replace($ret, $result->fetch_assoc());
+    
+            if($stmt->errno !== 0) Util::mysqlDie($stmt, __FILE__, __LINE__);
+    
+            $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
         
-        while($row = $result->fetch_assoc())
-            if(($ret[$row['field']] = $this->keychain->decryptData($row['value'], $row['hash'], $row['key'])) === false) unset($ret[$row['field']]);
-
-        if($stmt->errno !== 0) Util::mysqlDie($stmt, __FILE__, __LINE__);
-
-        $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+        }{ // Getting meta-data
+    
+            $stmt = db()->prepare("SELECT `field`, `value`, `key`, `hash` FROM `meta` WHERE (`owner` = ? AND `type` = 'user')")
+                or Util::mysqlDie(db(), __FILE__, __LINE__);
+    
+            $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
+    
+            $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+            $result = $stmt->get_result() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+            
+            while($row = $result->fetch_assoc())
+                if(($ret[$row['field']] = $this->keychain->decryptData($row['value'], $row['hash'], $key_hash[$row['field']] = $row['key'])) === false) unset($ret[$row['field']]);
+    
+            if($stmt->errno !== 0) Util::mysqlDie($stmt, __FILE__, __LINE__);
+    
+            $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+        }
 
         // Preparing data
 
@@ -61,6 +77,65 @@ class Model_User extends Model{
         $this->changed = false;
 
         return $ret;
+    }
+
+    public function setData($field, $key_hash){
+
+        $id = $this->id;
+        $field = array_replace(self::getData($default_key_hash), $field);
+        $key_hash = array_replace($default_key_hash, $key_hash);
+
+        { // Setting general data
+
+            $stmt = db()->prepare("UPDATE `users` SET `login` = ?, `vk_id` = ? WHERE `id` = ? LIMIT 1")
+                or Util::mysqlDie(db(), __FILE__, __LINE__);
+
+            $stmt->bind_param("sii", $login, $vk, $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
+            $login = $field['login'];
+            $vk = $field['vk_id'];
+
+            $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+
+            $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+        }
+        do{
+
+            $hash = array();
+            foreach($key_hash as $name => $key){
+
+                $value = $field[$name];
+                $hash[$name] = md5($value);
+                $field[$name] = $this->keychain->encryptData($value, $key);
+            }
+
+            $query = "INSERT IGNORE INTO `meta` (`field`, `value`, `key`, `hash`, `type`, `owner`) VALUES";
+            foreach($key_hash as $name => $key)
+                $query .= " ({$name}, {$field[$name]}, {$key}, {$hash[$name]}, 'user', {$id}),";
+
+            $query = rtrim($query, ",");
+            db()->query($query) or Util::mysqlDie(db(), __FILE__, __LINE__);
+            if(db()->affected_rows === count($key_hash)) break;
+
+            $query = "UPDATE IGNORE `meta` SET
+                `value` = CASE %s END,
+                `key` = CASE %s END,
+                `hash` = CASE %s END
+                WHERE (`type` = 'user' AND `owner` = {$id} AND `field` IN (%s))";
+
+            foreach($key_hash as $name => $key)
+                $query = sprintf($query,
+                    "WHEN `field` = {$name} THEN {$field[$name]} %s",
+                    "WHEN `field` = {$name} THEN {$key} %s",
+                    "WHEN `field` = {$name} THEN {$hash[$name]} %s",
+                    "$name, %s");
+            $query = str_replace(", %s", "", $query);
+            $query = str_replace(" %s", "", $query);
+            db()->query($query) or Util::mysqlDie(db(), __FILE__, __LINE__);
+        }while(false);
+
+        $this->changed = true;
+
+        return true;
     }
 
     public static function getIdByLogin($login){
@@ -82,20 +157,22 @@ class Model_User extends Model{
         return $id;
     }
 
-    public static function getPublicData($id){
+    public static function getLoginById($id){
 
-        $stmt = db()->prepare("SELECT `login`, `vk_id`, `permissions` FROM `users` WHERE `id` = ? LIMIT 1")
+        $stmt = db()->prepare("SELECT `login` FROM `users` WHERE `id` = ? LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
         $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
 
         $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-        $result = $stmt->get_result() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-        $ret = $result->fetch_assoc();
 
+        $stmt->bind_result($login) or Util::mysqlDie($stmt, __FILE__, __LINE__);
+
+        if(is_null($stmt->fetch())) return false; // ID isn't exists
         if($stmt->errno !== 0) Util::mysqlDie($stmt, __FILE__, __LINE__);
 
         $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-        return $ret;
+
+        return $login;
     }
 }

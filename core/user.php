@@ -40,16 +40,16 @@ class User{
         return $this->model->getKeychain();
     }
 
-    public function getData($fields = false){
+    public function getData($field = false){
 
         $data = $this->model->getData();
 
-        if($fields === false) return $data;
-        if(is_string($fields)) return $data[$fields];
-        if(!is_array($fields)) return false;
+        if($field === false) return $data;
+        if(is_string($field)) return $data[$field];
+        if(!is_array($field)) return false;
 
         $ret = array();
-        foreach($fields as $key)
+        foreach($field as $key)
             $ret[$key] = $data[$key];
 
         return $ret;
@@ -99,10 +99,10 @@ class User{
         return self::$current_user->getId();
     }
 
-    public static function getCurrentUserData($fields = false){
+    public static function getCurrentUserData($field = false){
 
         if(!self::isUserLoggedIn()) return array();
-        return self::$current_user->getData($fields);
+        return self::$current_user->getData($field);
     }
 
     public static function isCurrentUserCan($permission){

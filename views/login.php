@@ -6,8 +6,7 @@
     if(isset($_COOKIE[User::$cookie_name['session_id']])){
 
         $id = $_COOKIE[User::$cookie_name['session_id']];
-        $login = Model_User::getPublicData($id);
-        $login = $login['login'];
+        $login = Model_User::getLoginById($id);
     }
 
     if(isset($error))
