@@ -1,8 +1,7 @@
 <?
 class Model_Feedback extends Model{
 
-
-    public function getAnotherFeedBacks(){
+    public function getData($all = false){
         
     }
 }

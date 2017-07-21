@@ -22,12 +22,13 @@ a:hover{
     text-decoration: underline;
 }
 button, input, select, textarea{
-    background-color: #f7f7f7;
     padding: 5px;
+    max-width: 100%;
+    box-sizing: border-box;
+    vertical-align: baseline;
     font-size: 15px;
     line-height: 20px;
-    max-width: 100%;
-    vertical-align: baseline;
+    background-color: #f7f7f7;
 }
 button, input{
     -webkit-hyphens: none;
@@ -76,6 +77,7 @@ label{
     overflow: hidden;
     padding-left: 5px;
     line-height: 32px;
+    text-align: right;
     white-space: pre-wrap;
     box-sizing: border-box;
     background-color: #f7f7f7;
@@ -83,14 +85,27 @@ label{
     border: 1px solid rgba(51, 51, 51, 0.1);
     cursor: text;
 }
+label.tarea{
+    height: auto;
+    text-align: inherit;
+}
 label + label{
     margin-top: -1px;
 }
-label > input, label > span.checkbox{
+label > input, label > span.checkbox, label.tarea > textarea{
     border: 0px;
+}
+label > input:first-child{
+    min-width: calc(100% - 150px);
 }
 label > input:first-child, label > span.checkbox:first-child{
     float: right;
+}
+label.tarea > textarea:first-child{
+    display: block;
+    max-width: none;
+    width: calc(100% + 5px);
+    margin-left: -5px;
 }
 
 span.checkbox{

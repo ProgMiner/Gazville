@@ -97,8 +97,7 @@ class Model_User extends Model{
             $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
 
             $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-        }
-        do{
+        }do{ // Setting meta-data
 
             $hash = array();
             foreach($key_hash as $name => $key){
