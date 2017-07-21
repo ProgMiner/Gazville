@@ -34,11 +34,12 @@ class Model_User extends Model{
         if(!$this->changed) return $this->data;
         $id = $this->getId();
 
+        $key_hash = array();
         $ret = self::$default_data;
 
         { // Getting general data
     
-            $stmt = db()->prepare("SELECT `login`, `vk_id`, `permissions` FROM `users` WHERE `id` = ? LIMIT 1")
+            $stmt = db()->prepare("SELECT `login`, `vk_id` FROM `users` WHERE `id` = ? LIMIT 1")
                 or Util::mysqlDie(db(), __FILE__, __LINE__);
     
             $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
@@ -109,7 +110,7 @@ class Model_User extends Model{
 
             $query = "INSERT IGNORE INTO `meta` (`field`, `value`, `key`, `hash`, `type`, `owner`) VALUES";
             foreach($key_hash as $name => $key)
-                $query .= " ({$name}, {$field[$name]}, {$key}, {$hash[$name]}, 'user', {$id}),";
+                $query .= " ('{$name}', '{$field[$name]}', '{$key}', '{$hash[$name]}', 'user', {$id}),";
 
             $query = rtrim($query, ",");
             db()->query($query) or Util::mysqlDie(db(), __FILE__, __LINE__);
@@ -123,10 +124,10 @@ class Model_User extends Model{
 
             foreach($key_hash as $name => $key)
                 $query = sprintf($query,
-                    "WHEN `field` = {$name} THEN {$field[$name]} %s",
-                    "WHEN `field` = {$name} THEN {$key} %s",
-                    "WHEN `field` = {$name} THEN {$hash[$name]} %s",
-                    "$name, %s");
+                    "WHEN `field` = '{$name}' THEN '{$field[$name]}' %s",
+                    "WHEN `field` = '{$name}' THEN '{$key}' %s",
+                    "WHEN `field` = '{$name}' THEN '{$hash[$name]}' %s",
+                    "'{$name}', %s");
             $query = str_replace(", %s", "", $query);
             $query = str_replace(" %s", "", $query);
             db()->query($query) or Util::mysqlDie(db(), __FILE__, __LINE__);

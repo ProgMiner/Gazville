@@ -77,7 +77,6 @@ label{
     overflow: hidden;
     padding-left: 5px;
     line-height: 32px;
-    text-align: right;
     white-space: pre-wrap;
     box-sizing: border-box;
     background-color: #f7f7f7;
@@ -87,13 +86,14 @@ label{
 }
 label.tarea{
     height: auto;
-    text-align: inherit;
 }
 label + label{
     margin-top: -1px;
 }
 label > input, label > span.checkbox, label.tarea > textarea{
     border: 0px;
+    border-left: 1px solid #eaeaea;
+    border-left: 1px solid rgba(51, 51, 51, 0.1);
 }
 label > input:first-child{
     min-width: calc(100% - 150px);

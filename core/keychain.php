@@ -20,6 +20,8 @@ class Keychain{
     public function encryptData($data, $keyHash){
 
         $key = $this->model->getData();
+
+        if(!isset($key[$keyHash])) return false;
         $key = $key[$keyHash];
 
         $encrypted = self::encryptRSA($data, $key, $ok);
@@ -132,12 +134,14 @@ class Keychain{
     public static function encryptRSA($source, $key, &$ok = null, $private = false){
 
         $maxlength = openssl_pkey_get_details($key);
+
+        if(!$private) $key = openssl_pkey_get_public($maxlength['key']);
         $maxlength = $maxlength['bits'] / 8 - 11;
 
         $ret = "";
         do{
-            $input = substr($source, 0, $maxlength);
-            if(($source = substr($source, $maxlength)) === false) break;
+            if(empty($input = substr($source, 0, $maxlength))) break;
+            $source = substr($source, $maxlength);
 
             if($private) $ok = openssl_private_encrypt($input, $encrypted, $key);
             else $ok = openssl_public_encrypt($input, $encrypted, $key);
@@ -150,14 +154,16 @@ class Keychain{
 
     public static function decryptRSA($source, $key, &$ok = null, $public = false){
 
-        $source = base64_decode($source);
         $maxlength = openssl_pkey_get_details($key);
+
+        if($public) $key = openssl_pkey_get_public($maxlength['key']);
         $maxlength = $maxlength['bits'] / 8;
+        $source = base64_decode($source);
 
         $ret = "";
         do{
-            $input = substr($source, 0, $maxlength);
-            if(($source = substr($source, $maxlength)) === false) break;
+            if(empty($input = substr($source, 0, $maxlength))) break;
+            $source = substr($source, $maxlength);
 
             if($public) $ok = openssl_public_decrypt($input, $decrypted, $key);
             else $ok = openssl_private_decrypt($input, $decrypted, $key);

@@ -40,19 +40,31 @@ class User{
         return $this->model->getKeychain();
     }
 
-    public function getData($field = false){
+    public function getData($field = false, &$key_hash){
 
-        $data = $this->model->getData();
+        $data = $this->model->getData($key_hash);
 
         if($field === false) return $data;
-        if(is_string($field)) return $data[$field];
+        if(is_string($field)){
+            $key_hash = $key_hash[$field];
+            return $data[$field];
+        }
         if(!is_array($field)) return false;
 
         $ret = array();
-        foreach($field as $key)
+        $key_hash_tmp = $key_hash;
+        $key_hash = array();
+        foreach($field as $key){
+            $key_hash[$key] = $key_hash_tmp[$field];
             $ret[$key] = $data[$key];
+        }
 
         return $ret;
+    }
+
+    public function setData(array $field, array $key_hash){
+
+        $this->model->setData($field, $key_hash);
     }
 
     public function isUserCan($permission){

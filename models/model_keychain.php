@@ -66,7 +66,7 @@ class Model_Keychain extends Model{
         $id = $this->id;
         self::resetSession($id);
 
-        $stmt = db()->prepare("INSERT INTO `keys` VALUES (?, ?, 'session', ?)")
+        $stmt = db()->prepare("INSERT INTO `keys` (`hash`, `key`, `type`, `owner`) VALUES (?, ?, 'session', ?)")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
         $stmt->bind_param("ssi", $hash, $key, $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
