@@ -37,8 +37,8 @@
             <div id="header"<?if(!User::isUserLoggedIn()):?> class="slice"<?endif;?>>
                 <a class="vk" href="https://vk.com/club70404044" target="_blank">Группа</a><!--
              --><a class="info" href="/info">Информация</a><!--
-                 --><?if(User::isUserLoggedIn()):?><!--
-                 --><a class="events" href="/events">События</a><!--
+             --><a class="events" href="/events">События</a><!--
+             --><?if(User::isUserLoggedIn()):?><!--
                  --><a class="rubrics" href="/c/rubrics">Рубрики</a><!--
              --><?endif;?><!--
              --><a class="feedback" href="/feedback">Обратная связь</a>
