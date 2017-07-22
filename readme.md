@@ -2,6 +2,8 @@
 
 + Add Register controller
 + Make admin-panel
++ Make Feedback
++ Make Model_Meta
 
 # DB Structure
 
@@ -22,7 +24,6 @@
 
 + **meta**
   + *int* **id** - Identificator
-  + *varchar(255)* **field** - Field name
   + *text* **value** - Field value
   + *varchar(32)* **key** - Key hash
   + *varchar(32)* **hash** - Field hash
