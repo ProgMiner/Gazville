@@ -23,15 +23,9 @@ class Controller_Page extends Controller{
 
     public static function preroute($url){
 
-        $pages = Model_Page::getPagesURLs();
-
-        foreach($pages as $page_url => $id)
-            if($url === "/{$page_url}"){
-
-                $url = "/page/{$id}";
-                break;
-            }
-        
-        return $url;
+        if(!preg_match("/^\/(\w{,255})$/", $url, $matches)) return $url;
+        if(($id = Model_Page::getIdByURL($matches[1])) === false) return $url;
+    
+        return "/page/{$id}"; 
     }
 }

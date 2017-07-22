@@ -15,7 +15,7 @@ class Model_Page extends Model{
 
         $ret = self::$default_data;
 
-        $stmt = db()->prepare("SELECT `title`, `content`, `author` FROM `pages` WHERE `id` = ? LIMIT 1")
+        $stmt = db()->prepare("SELECT `page_title`, `page_content`, `user_id` FROM `pages` WHERE `page_id` = ? LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
         $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
@@ -35,22 +35,22 @@ class Model_Page extends Model{
         return $ret;
     }
 
+    public static function getIdByURL($url){
 
-    public static function getPagesURLs(){
-
-        $stmt = db()->prepare("SELECT `id`, `url` FROM `pages` WHERE `url` <> ''")
+        $stmt = db()->prepare("SELECT `page_id` FROM `pages` WHERE `page_url` = ? LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
-        $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-        $result = $stmt->get_result() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-    
-        $ret = array();
-        while($row = $result->fetch_assoc())
-            $ret[$row['url']] = $row['id'];
+        $stmt->bind_param("s", $url) or Util::mysqlDie($stmt, __FILE__, __LINE__);
 
+        $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
+
+        $stmt->bind_result($id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
+
+        if(is_null($stmt->fetch())) return false; // URL isn't exists
         if($stmt->errno !== 0) Util::mysqlDie($stmt, __FILE__, __LINE__);
 
         $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-        return $ret;
+
+        return $id;
     }
 }

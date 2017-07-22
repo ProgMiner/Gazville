@@ -17,6 +17,16 @@ class Keychain{
         return $this->model->getId();
     }
 
+    public function getKeys(){
+
+        return array_keys($this->model->getData());
+    }
+
+    public function isKeyExists($key){
+
+        return array_key_exists($key, $this->model->getData());
+    }
+
     public function encryptData($data, $keyHash){
 
         $key = $this->model->getData();
@@ -33,6 +43,8 @@ class Keychain{
     public function decryptData($encrypted, $hash, $keyHash){
 
         $key = $this->model->getData();
+
+        if(!isset($key[$keyHash])) return false;
         $key = $key[$keyHash];
 
         $data = self::decryptRSA($encrypted, $key, $ok);

@@ -1,5 +1,7 @@
 <?
 
+Route::loadModel("Meta");
+
 class Model_User extends Model{
 
     protected static $default_data = array(
@@ -9,14 +11,16 @@ class Model_User extends Model{
         );
 
     private $id;
+    private $meta;
     private $keychain;
 
     public function __construct(Keychain $keychain, $id = null){
 
         if(is_null($id)) $id = $keychain->getId();
 
-        $this->keychain = $keychain;
         $this->id = $id;
+        $this->keychain = $keychain;
+        $this->meta = new Model_Meta($id, "user", $keychain);
     }
 
     public function getId(){
@@ -39,7 +43,7 @@ class Model_User extends Model{
 
         { // Getting general data
     
-            $stmt = db()->prepare("SELECT `login`, `vk_id` FROM `users` WHERE `id` = ? LIMIT 1")
+            $stmt = db()->prepare("SELECT `user_login`, `vk_id` FROM `users` WHERE `user_id` = ? LIMIT 1")
                 or Util::mysqlDie(db(), __FILE__, __LINE__);
     
             $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
@@ -52,23 +56,9 @@ class Model_User extends Model{
     
             $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
         
-        }{ // Getting meta-data
-    
-            $stmt = db()->prepare("SELECT `field`, `value`, `key`, `hash` FROM `meta` WHERE (`owner` = ? AND `type` = 'user')")
-                or Util::mysqlDie(db(), __FILE__, __LINE__);
-    
-            $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
-    
-            $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-            $result = $stmt->get_result() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-            
-            while($row = $result->fetch_assoc())
-                if(($ret[$row['field']] = $this->keychain->decryptData($row['value'], $row['hash'], $key_hash[$row['field']] = $row['key'])) === false) unset($ret[$row['field']]);
-    
-            if($stmt->errno !== 0) Util::mysqlDie($stmt, __FILE__, __LINE__);
-    
-            $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
         }
+
+        $ret = array_replace($ret, $this->meta->getData());
 
         // Preparing data
 
@@ -88,7 +78,7 @@ class Model_User extends Model{
 
         { // Setting general data
 
-            $stmt = db()->prepare("UPDATE `users` SET `login` = ?, `vk_id` = ? WHERE `id` = ? LIMIT 1")
+            $stmt = db()->prepare("UPDATE `users` SET `user_login` = ?, `vk_id` = ? WHERE `user_id` = ? LIMIT 1")
                 or Util::mysqlDie(db(), __FILE__, __LINE__);
 
             $stmt->bind_param("sii", $login, $vk, $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
@@ -140,7 +130,7 @@ class Model_User extends Model{
 
     public static function getIdByLogin($login){
 
-        $stmt = db()->prepare("SELECT `id` FROM `users` WHERE `login` = ? LIMIT 1")
+        $stmt = db()->prepare("SELECT `user_id` FROM `users` WHERE `user_login` = ? LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
         $stmt->bind_param("s", $login) or Util::mysqlDie($stmt, __FILE__, __LINE__);
@@ -159,7 +149,7 @@ class Model_User extends Model{
 
     public static function getLoginById($id){
 
-        $stmt = db()->prepare("SELECT `login` FROM `users` WHERE `id` = ? LIMIT 1")
+        $stmt = db()->prepare("SELECT `user_login` FROM `users` WHERE `user_id` = ? LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
         $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);

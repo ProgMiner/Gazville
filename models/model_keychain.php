@@ -39,7 +39,7 @@ class Model_Keychain extends Model{
                 $this->keyHash => $this->key
             );
 
-        $stmt = db()->prepare("SELECT `hash`, `key` FROM `keys` WHERE (`owner` = ? AND `type` = 'group')")
+        $stmt = db()->prepare("SELECT `key_hash`, `key` FROM `keys` WHERE (`user_id` = ? AND `key_type` = 'group')")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
         $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
@@ -49,7 +49,7 @@ class Model_Keychain extends Model{
         $result = $stmt->get_result() or Util::mysqlDie($stmt, __FILE__, __LINE__);
         
         while($row = $result->fetch_assoc())
-            if(($ret[$row['hash']] = $this->decryptKey($row['key'], $row['hash'])) === false) unset($ret[$row['hash']]);
+            if(($ret[$row['key_hash']] = $this->decryptKey($row['key'], $row['key_hash'])) === false) unset($ret[$row['key_hash']]);
 
         if($stmt->errno !== 0) Util::mysqlDie($stmt, __FILE__, __LINE__);
 
@@ -66,7 +66,7 @@ class Model_Keychain extends Model{
         $id = $this->id;
         self::resetSession($id);
 
-        $stmt = db()->prepare("INSERT INTO `keys` (`hash`, `key`, `type`, `owner`) VALUES (?, ?, 'session', ?)")
+        $stmt = db()->prepare("INSERT INTO `keys` (`key_hash`, `key`, `key_type`, `user_id`) VALUES (?, ?, 'session', ?)")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
         $stmt->bind_param("ssi", $hash, $key, $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
@@ -89,7 +89,7 @@ class Model_Keychain extends Model{
 
     public static function resetSession($id){
 
-        $stmt = db()->prepare("DELETE FROM `keys` WHERE (`owner` = ? AND `type` = 'session') LIMIT 1")
+        $stmt = db()->prepare("DELETE FROM `keys` WHERE (`user_id` = ? AND `key_type` = 'session') LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
         $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
@@ -101,7 +101,7 @@ class Model_Keychain extends Model{
 
     public static function getKeyByHash($owner, $hash, $type = "group"){
 
-        $stmt = db()->prepare("SELECT `key` FROM `keys` WHERE (`owner` = ? AND `type` = ? AND `hash` = ?) LIMIT 1")
+        $stmt = db()->prepare("SELECT `key` FROM `keys` WHERE (`user_id` = ? AND `key_type` = ? AND `key_hash` = ?) LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
         $stmt->bind_param("iss", $owner, $type, $hash) or Util::mysqlDie($stmt, __FILE__, __LINE__);
@@ -125,7 +125,7 @@ class Model_Keychain extends Model{
                 'hash' => $hash
             );
 
-        $stmt = db()->prepare("SELECT `hash`, `key` FROM `keys` WHERE (`owner` = ? AND `type` = ?) LIMIT 1")
+        $stmt = db()->prepare("SELECT `key_hash`, `key` FROM `keys` WHERE (`user_id` = ? AND `key_type` = ?) LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
         $stmt->bind_param("is", $owner, $type) or Util::mysqlDie($stmt, __FILE__, __LINE__);
