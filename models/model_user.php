@@ -5,6 +5,7 @@ Route::loadModel("Meta");
 class Model_User extends Model{
 
     protected static $default_data = array(
+            'permissions'       => 1,
             'first_name'    => "",
             'last_name'     => "",
             'sidebar'       => 511

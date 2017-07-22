@@ -23,7 +23,7 @@ class Controller_Page extends Controller{
 
     public static function preroute($url){
 
-        if(!preg_match("/^\/(\w{,255})$/", $url, $matches)) return $url;
+        if(!preg_match("/^\/(\w{0,255})$/", $url, $matches)) return $url;
         if(($id = Model_Page::getIdByURL($matches[1])) === false) return $url;
     
         return "/page/{$id}"; 

@@ -52,7 +52,7 @@ abstract class Util{
 
     public static function log($msgarg, $filearg = __FILE__, $linearg = __LINE__){
 
-        $stmt = db()->prepare("INSERT INTO `log` (`msg`, `ip`, `file`, `url`) VALUES (?, ?, ?, ?)")
+        $stmt = db()->prepare("INSERT INTO `log` (`msg_text`, `msg_ip`, `msg_file`, `msg_url`) VALUES (?, ?, ?, ?)")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
 
         $stmt->bind_param("siss", $msg, $ip, $file, $url)

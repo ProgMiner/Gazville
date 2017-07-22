@@ -114,7 +114,7 @@ class Keychain{
 
         if(is_null($key)) return false;
 
-        $hash = $key['hash'];
+        $hash = $key['key_hash'];
         $key = $key['key'];
 
         $key = openssl_decrypt($key, User::$openssl_aes, $password_hash, 0, hex2bin($hash))

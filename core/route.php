@@ -52,6 +52,8 @@ abstract class Route{
         foreach (self::$controllers as $controller)
             $url = $controller::preroute($url);
 
+        Util::log("Prerouting: {$url}", __FILE__, __LINE__);
+
         return $url;
     }
 

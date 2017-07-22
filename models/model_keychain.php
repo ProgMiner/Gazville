@@ -122,7 +122,7 @@ class Model_Keychain extends Model{
 
         if(!is_null($hash) || $type === "group") return array(
                 'key' => getKeyByHash($owner, $hash, $type),
-                'hash' => $hash
+                'key_hash' => $hash
             );
 
         $stmt = db()->prepare("SELECT `key_hash`, `key` FROM `keys` WHERE (`user_id` = ? AND `key_type` = ?) LIMIT 1")

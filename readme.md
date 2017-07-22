@@ -51,7 +51,6 @@
     + *varchar(255)* **page_url** - Alternative URL for page
     + *text* **page_title** - Page title
     + *text* **page_content** - Page content
-    + *int(11)* **user_id** - User identificator
 
 + **tasks**
   + Indexes
