@@ -5,13 +5,15 @@ class Model_Page extends Model{
     private $id;
 
     public function __construct($id){
+
+        parent::__construct();
         
         $this->id = $id;
     }
 
     public function getData(){
 
-        if(!$this->changed) return $this->data;
+        if(!is_null($this->data)) return $this->data;
 
         $ret = self::$default_data;
 
@@ -33,7 +35,6 @@ class Model_Page extends Model{
         $ret['content'] = $ret['page_content'];
 
         $this->data = $ret;
-        $this->changed = false;
 
         return $ret;
     }

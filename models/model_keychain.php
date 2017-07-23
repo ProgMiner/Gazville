@@ -8,6 +8,8 @@ class Model_Keychain extends Model{
 
     public function __construct($id, $key){
 
+        parent::__construct();
+
         $this->id = $id;
         $this->key = $key;
 
@@ -33,7 +35,7 @@ class Model_Keychain extends Model{
 
     public function getData(){
 
-        if(!$this->changed) return $this->data;
+        if(!is_null($this->data)) return $this->data;
 
         $ret = array(
                 $this->keyHash => $this->key
@@ -56,7 +58,6 @@ class Model_Keychain extends Model{
         $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
 
         $this->data = $ret;
-        $this->changed = false;
 
         return $ret;
     }

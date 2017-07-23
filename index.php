@@ -45,3 +45,4 @@ echo($pem);
 
 User::start(); // Check authorization
 Route::start(); // Start routing
+Model::start(); // Commit changed data

@@ -8,10 +8,9 @@
 
 + **keys**
   + Indexes
-    + *PRIMARY* **PRIMARY** - **key_id**
+    + *PRIMARY* **PRIMARY** - **key_hash**, **key_type**, **user_id**
     + *INDEX* **key** - **key_type**, **user_id**
   + Columns
-    + *int(11)* **key_id** - Key identificator
     + *text* **key** - Encrypted key
     + *varchar(32)* **key_hash** - Key hash
     + *enum(user, session, group, invitation)* **key_type** - Key type
@@ -31,11 +30,9 @@
 
 + **meta**
   + Indexes
-    + *PRIMARY* **PRIMARY** - **meta_id**
-    + *UNIQUE* **group** - **key_hash**, **owner_type**, **owner_id**
+    + *PRIMARY* **PRIMARY** - **key_hash**, **owner_type**, **owner_id**
     + *INDEX* **key** - **owner_type**, **owner_id**
   + Columns
-    + *int(11)* **meta_id** - Meta identificator
     + *text* **meta_value** - Meta value
     + *varchar(32)* **meta_hash** - Meta hash
     + *varchar(32)* **key_hash** - Key hash

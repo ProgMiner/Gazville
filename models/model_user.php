@@ -17,6 +17,8 @@ class Model_User extends Model{
 
     public function __construct(Keychain $keychain, $id = null){
 
+        parent::__construct();
+
         if(is_null($id)) $id = $keychain->getId();
 
         $this->id = $id;
@@ -34,99 +36,77 @@ class Model_User extends Model{
         return $this->keychain;
     }
 
-    public function getData(&$key_hash = null){
+    public function getData(){
 
-        if(!$this->changed) return $this->data;
-        $id = $this->getId();
+        // Getting general data
+        if(is_null($this->data)){
 
-        $key_hash = array();
-        $ret = self::$default_data;
-
-        { // Getting general data
-    
             $stmt = db()->prepare("SELECT `user_login`, `vk_id` FROM `users` WHERE `user_id` = ? LIMIT 1")
                 or Util::mysqlDie(db(), __FILE__, __LINE__);
-    
+
             $stmt->bind_param("i", $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
-    
+            $id = $this->getId();
+
             $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
             $result = $stmt->get_result() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-            $ret = array_replace($ret, $result->fetch_assoc());
-    
+            $data = $result->fetch_assoc();
+
             if($stmt->errno !== 0) Util::mysqlDie($stmt, __FILE__, __LINE__);
-    
+
             $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-        
+
+            $this->data = $data;
         }
 
-        $ret = array_replace($ret, $this->meta->getData());
+        // Getting metadata
+        $data = array_replace(self::$default_data, $this->data, $this->meta->getData());
 
         // Preparing data
+        if(!isset($data['full_name'])) $data['full_name'] = "{$data['first_name']} {$data['last_name']}";
 
-        $ret['full_name'] = $ret['first_name'] . $ret['last_name'];
-
-        $this->data = $ret;
-        $this->changed = false;
-
-        return $ret;
+        return $data;
     }
 
-    public function setData($field, $key_hash){
+    public function setData($data, $key_hash = array()){
 
-        $id = $this->id;
-        $field = array_replace(self::getData($default_key_hash), $field);
-        $key_hash = array_replace($default_key_hash, $key_hash);
+        $this->getData();
 
         { // Setting general data
+            $data = array_replace($tmp = $this->data, $data);
+
+            foreach($tmp as $key => $value){
+                $tmp[$key] = $data[$key];
+                unset($data[$key]);
+            }
+
+            $this->data = $tmp;
+        }
+
+        // Setting metadata
+        $this->meta->setData($data, $key_hash);
+    }
+
+    public function commitData(){
+
+        { // Commit general data
+
+            $data = $this->getData();
 
             $stmt = db()->prepare("UPDATE `users` SET `user_login` = ?, `vk_id` = ? WHERE `user_id` = ? LIMIT 1")
                 or Util::mysqlDie(db(), __FILE__, __LINE__);
 
             $stmt->bind_param("sii", $login, $vk, $id) or Util::mysqlDie($stmt, __FILE__, __LINE__);
-            $login = $field['login'];
-            $vk = $field['vk_id'];
+            $login = $data['user_login'];
+            $vk = $data['vk_id'];
+            $id = $this->id;
 
             $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
 
             $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
-        }do{ // Setting meta-data
+        }
 
-            $hash = array();
-            foreach($key_hash as $name => $key){
-
-                $value = $field[$name];
-                $hash[$name] = md5($value);
-                $field[$name] = $this->keychain->encryptData($value, $key);
-            }
-
-            $query = "INSERT IGNORE INTO `meta` (`field`, `value`, `key`, `hash`, `type`, `owner`) VALUES";
-            foreach($key_hash as $name => $key)
-                $query .= " ('{$name}', '{$field[$name]}', '{$key}', '{$hash[$name]}', 'user', {$id}),";
-
-            $query = rtrim($query, ",");
-            db()->query($query) or Util::mysqlDie(db(), __FILE__, __LINE__);
-            if(db()->affected_rows === count($key_hash)) break;
-
-            $query = "UPDATE IGNORE `meta` SET
-                `value` = CASE %s END,
-                `key` = CASE %s END,
-                `hash` = CASE %s END
-                WHERE (`type` = 'user' AND `owner` = {$id} AND `field` IN (%s))";
-
-            foreach($key_hash as $name => $key)
-                $query = sprintf($query,
-                    "WHEN `field` = '{$name}' THEN '{$field[$name]}' %s",
-                    "WHEN `field` = '{$name}' THEN '{$key}' %s",
-                    "WHEN `field` = '{$name}' THEN '{$hash[$name]}' %s",
-                    "'{$name}', %s");
-            $query = str_replace(", %s", "", $query);
-            $query = str_replace(" %s", "", $query);
-            db()->query($query) or Util::mysqlDie(db(), __FILE__, __LINE__);
-        }while(false);
-
-        $this->changed = true;
-
-        return true;
+        // Commit metadata
+        $this->meta->commitData();
     }
 
     public static function getIdByLogin($login){

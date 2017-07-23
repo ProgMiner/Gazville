@@ -44,7 +44,7 @@ abstract class Route{
         $classes = get_declared_classes();
         foreach($classes as $class)
             if(preg_match("/^{$prefix}[A-z]*$/", $class))
-                self::$controllers[count(self::$controllers)] = $class;
+                array_push(self::$controllers, $class);
     }
 
     private static function prerouting($url){
