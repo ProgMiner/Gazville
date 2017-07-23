@@ -68,3 +68,12 @@
     + *int(11)* **user_id** - User identificator
     + *varchar(255)* **user_login** - User login
     + *int(11)* **vk_id** - VK identificator
+
++ **feedback**
+  + Indexes
+   + *PRIMARY* **UNSIGNED** - **id**
+  + Columns
+    + *int(10)* **id** - FeedBack identificator
+    + *varchar(255)* **author** - FeedBack author
+    + *text* **title** - FeedBack title
+    + *text* **content** - FeedBack content
