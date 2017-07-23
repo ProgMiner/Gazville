@@ -92,20 +92,22 @@ label + label{
 }
 label > input, label > span.checkbox, label.tarea > textarea{
     border: 0px;
-    border-left: 1px solid #eaeaea;
-    border-left: 1px solid rgba(51, 51, 51, 0.1);
 }
 label > input:first-child{
     min-width: calc(100% - 150px);
 }
 label > input:first-child, label > span.checkbox:first-child{
     float: right;
+    border-left: 1px solid #eaeaea;
+    border-left: 1px solid rgba(51, 51, 51, 0.1);
 }
 label.tarea > textarea:first-child{
     display: block;
     max-width: none;
     width: calc(100% + 5px);
     margin-left: -5px;
+    border-top: 1px solid #eaeaea;
+    border-top: 1px solid rgba(51, 51, 51, 0.1);
 }
 
 span.checkbox{

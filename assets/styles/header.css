@@ -26,8 +26,7 @@
     background-size: 204px auto
 }
 #header.slice > a{
-    width: calc(22% - 36px);
-    margin: 0px 42px;
+    width: calc(25% - 36px);
 }
 #header > a:hover{
     background-color: rgba(255, 255, 255, 0.85);
@@ -66,15 +65,12 @@
     padding-right: 0px;
     margin-left: 0px;
 }
-#header.slice > a:first-child{
-    width: calc(22% - 18px);
-}
 #header > a:last-child{
     width: calc(20% - 18px);
     margin-right: 0px;
 }
-#header.slice > a:last-child{
-    width: calc(22% - 18px);
+#header.slice > a:first-child, #header.slice > a:last-child{
+    width: calc(25% - 18px);
 }
 #header > a:first-child:before, #header > a:last-child:after{
     content: none;
