@@ -233,8 +233,9 @@ body{
 }
 div.post, div.page{
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
     margin-bottom: 15px;
+    word-wrap: break-word;
     background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85));
     background-size: calc(100% - 155px) 100%;
     background-position: 100% 0%;
@@ -289,6 +290,9 @@ div.postcenter:first-child{
 }
 div.postcenter.error{
     background-color: rgba(255, 95, 95, 0.65);
+}
+div.postcenter.success{
+    background-color: rgba(95, 255, 95, 0.65);
 }
 div.posttitle{
     margin-bottom: -5px;

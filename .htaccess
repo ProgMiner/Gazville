@@ -7,6 +7,8 @@ RewriteBase /
 # RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
 
 RewriteRule ^\. - [F,L]
+RewriteRule ^key\.pem$ - [F,L]
+RewriteRule ^config\.php$ - [F,L]
 
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f

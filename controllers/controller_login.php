@@ -26,6 +26,17 @@ class Controller_Login extends Controller{
         }
 
         if(User::isUserLoggedIn()) Util::redirect("/", __FILE__, __LINE__);
+
+        $data['default'] = array(
+                'login' => "",
+                'password' => "",
+                'remember' => "on"
+            );
+
+        foreach($data['default'] as $field => $value)
+            if(isset($_POST[$field])) $data['default'][$field] = $_POST[$field];
+
+        if($data['default']['remember'] !== "") $data['default']['remember'] = " checked";
         
         $this->view = new View($data, "login");
         $this->view->place();

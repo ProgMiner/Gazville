@@ -27,12 +27,12 @@ class Keychain{
         return array_key_exists($key, $this->model->getData());
     }
 
-    public function encryptData($data, $keyHash){
+    public function encryptData($data, $key_hash){
 
         $key = $this->model->getData();
 
-        if(!isset($key[$keyHash])) return false;
-        $key = $key[$keyHash];
+        if(!isset($key[$key_hash])) return false;
+        $key = $key[$key_hash];
 
         $encrypted = self::encryptRSA($data, $key, $ok);
         if(!$ok) Util::opensslDie(__FILE__, __LINE__);
@@ -40,15 +40,25 @@ class Keychain{
         return $encrypted;
     }
 
-    public function decryptData($encrypted, $hash, $keyHash){
+    public function decryptData($encrypted, $hash, $key_hash = null, $die = true){
 
         $key = $this->model->getData();
 
-        if(!isset($key[$keyHash])) return false;
-        $key = $key[$keyHash];
+        if(is_null($key_hash)){
+
+            foreach($key as $key_hash => $key)
+                if(($data = $this->decryptData($encrypted, $hash, $key_hash, false)) !== false)
+                    return $data;
+
+            return false;
+        }
+        
+        if(!isset($key[$key_hash])) return false;
+        $key = $key[$key_hash];
 
         $data = self::decryptRSA($encrypted, $key, $ok);
-        if(!$ok) Util::opensslDie(__FILE__, __LINE__);
+        if(!$ok && $die) Util::opensslDie(__FILE__, __LINE__);
+        elseif(!$ok) return false;
 
         if(md5($data) !== $hash) return false;
         return $data;

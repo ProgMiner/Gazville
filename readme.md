@@ -6,6 +6,20 @@
 
 # DB Structure
 
++ **feedback**
+  + Indexes
+    + *PRIMARY* **PRIMARY** - **msg_id**
+    + *UNIQUE* **message** - **msg_id**, **msg_author**
+    + *INDEX* **author** - **msg_author**
+    + *INDEX* **time** - **msg_time**
+  + Columns
+    + *int* **msg_id** - Message identificator
+    + *timestamp* **msg_time** - Message creation time
+    + *text* **msg_theme** - Message theme
+    + *text* **msg_content** - Message content
+    + *varchar(32)* **msg_hash** - Message hash
+    + *varchar(255)* **msg_author** - Message author
+
 + **keys**
   + Indexes
     + *PRIMARY* **PRIMARY** - **key_hash**, **key_type**, **user_id**
@@ -14,17 +28,17 @@
     + *text* **key** - Encrypted key
     + *varchar(32)* **key_hash** - Key hash
     + *enum(user, session, group, invitation)* **key_type** - Key type
-    + *int(11)* **user_id** - User identificator
+    + *int* **user_id** - User identificator
 
 + **log**
   + Indexes
     + *PRIMARY* **PRIMARY** - **msg_id**
     + *INDEX* **time** - **msg_time**
   + Columns
-    + *int(11)* **msg_id** - Message identificator
+    + *int* **msg_id** - Message identificator
     + *timestamp* **msg_time** - Message creation time
     + *text* **msg_text** - Message text
-    + *int(11)* **msg_ip** - Message creation IP
+    + *int* **msg_ip** - Message creation IP
     + *text* **msg_file** - Message creation file and line
     + *text* **msg_url** - Message creation URL
 
@@ -37,14 +51,14 @@
     + *varchar(32)* **meta_hash** - Meta hash
     + *varchar(32)* **key_hash** - Key hash
     + *enum(user, group, post)* **owner_type** - Owner type
-    + *int(11)* **owner_id** - Owner identificator
+    + *int* **owner_id** - Owner identificator
 
 + **pages**
   + Indexes
     + *PRIMARY* **PRIMARY** - **page_id**
     + *UNIQUE* **url** - **page_url**
   + Columns
-    + *int(11)* **page_id** - Page identificator
+    + *int* **page_id** - Page identificator
     + *varchar(255)* **page_url** - Alternative URL for page
     + *text* **page_title** - Page title
     + *text* **page_content** - Page content
@@ -53,11 +67,11 @@
   + Indexes
     + *PRIMARY* **PRIMARY** - **task_id**
   + Columns
-    + *int(11)* **task_id** - Task identificator
+    + *int* **task_id** - Task identificator
     + *text* **task** - Task
     + *varchar(32)* **key_hash** - Required key hash
     + *enum(waiting, processing)* **task_status** - Task status
-    + *int(11)* **user_id** - User identificator
+    + *int* **user_id** - User identificator
 
 + **users**
   + Indexes
@@ -65,15 +79,6 @@
     + *UNIQUE* **login** - **user_login**
     + *UNIQUE* **vk_id** - **vk_id**
   + Columns
-    + *int(11)* **user_id** - User identificator
+    + *int* **user_id** - User identificator
     + *varchar(255)* **user_login** - User login
-    + *int(11)* **vk_id** - VK identificator
-
-+ **feedback**
-  + Indexes
-   + *PRIMARY* **UNSIGNED** - **id**
-  + Columns
-    + *int(10)* **id** - FeedBack identificator
-    + *varchar(255)* **author** - FeedBack author
-    + *text* **title** - FeedBack title
-    + *text* **content** - FeedBack content
+    + *int* **vk_id** - VK identificator

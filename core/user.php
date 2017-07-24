@@ -40,12 +40,13 @@ class User{
         return $this->model->getKeychain();
     }
 
-    public function getData($field = false, &$key_hash){
+    public function getData($field = false, &$key_hash = null){
 
         $data = $this->model->getData($key_hash);
 
         if($field === false) return $data;
         if(is_string($field)){
+            if(!isset($data[$field])) return "";
             $key_hash = $key_hash[$field];
             return $data[$field];
         }
@@ -111,10 +112,10 @@ class User{
         return self::$current_user->getId();
     }
 
-    public static function getCurrentUserData($field = false){
+    public static function getCurrentUserData($field = false, &$key_hash = null){
 
         if(!self::isUserLoggedIn()) return array();
-        return self::$current_user->getData($field);
+        return self::$current_user->getData($field, $key_hash);
     }
 
     public static function isCurrentUserCan($permission){
