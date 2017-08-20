@@ -24,14 +24,26 @@ class Controller_Admin extends Controller{
         $this->view->place();
     }
 
+    public function feedback(){
+
+        $data = array();
+
+        //
+
+        $this->view = new View($data, "admin/users");
+        $this->view->place();
+    }
+
     public function start(){
 
-        if(!User::isCurrentUserCan(User::$permission['adminpanel'])) Util::error404(__FILE__, __LINE__); 
+        if(!User::isCurrentUserCan(User::$permission['adminpanel'])) Util::error404(__FILE__, __LINE__);
+        
+        $args = Route::getArgument();
 
-        if(!isset($this->argument[2]) || empty($this->argument[2]) ||
-            !method_exists($this, $this->argument[2])) $this->argument[2] = "hub";
+        if(!isset($args[2]) || empty($args[2]) ||
+            !method_exists($this, $args[2])) $args[2] = "hub";
 
-        $method = $this->argument[2];
+        $method = $args[2];
         $this->$method();
     }
 

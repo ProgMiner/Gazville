@@ -4,11 +4,11 @@ Route::loadModel("Page");
 
 class Controller_Page extends Controller{
 
-    public function __construct(array $args){
+    public function __construct(){
 
-        parent::__construct($args);
+        parent::__construct();
 
-        $this->model = new Model_Page($this->argument[2]);
+        $this->model = new Model_Page(Route::getArgument(2));
     }
 
     public function start(){

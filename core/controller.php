@@ -1,14 +1,15 @@
 <?
+Route::loadWidget("Sidebar");
 
 abstract class Controller {
     
-    protected $argument;
     protected $model;
     protected $view;
+    protected $widget = array();
     
-    public function __construct(array $args){
-
-        $this->argument = $args;
+    public function __construct(){
+        
+        
     }
     
     public abstract function start();

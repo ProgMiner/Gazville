@@ -6,17 +6,18 @@ class Controller_Feedback extends Controller{
 
     private $action = "";
 
-    public function __construct(array $args){
+    public function __construct(){
 
-        parent::__construct($args);
+        parent::__construct();
 
+        $arg2 = Route::getArgument(2);
         $arg = "";
-        if(isset($this->argument[2])) $arg = $this->argument[2];
+        if(!is_null($arg2)) $arg = $arg2;
 
         if($arg === strval(intval($arg))) $arg = "single";
         elseif($arg !== "all") $arg = "";
 
-        if($arg === "single") $this->model = new Model_Feedback(false, $this->argument[2]);
+        if($arg === "single") $this->model = new Model_Feedback(false, $arg2);
         elseif($arg === "all") $this->model = new Model_Feedback(true);
         else $this->model = new Model_Feedback();
 

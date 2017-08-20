@@ -11,7 +11,7 @@ class Controller_Login extends Controller{
 
     public function start(){
 
-        if(isset($this->argument[2]) && $this->argument[2] === "logout") return $this->logout();
+        if(Route::getArgument(2) === "logout") return $this->logout();
 
         $data = array();
         while(isset($_POST['login']) && isset($_POST['password']) && 

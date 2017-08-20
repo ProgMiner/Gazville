@@ -6,19 +6,34 @@ abstract class Route{
     public static $path = array(
             'view' => "views/",
             'model' => "models/",
+            'widget' => "widgets/",
             'controller' => "controllers/"
         );
 
     public static $prefix = array(
             'model' => "Model_",
+            'widget' => "Widget_",
             'controller' => "Controller_"
         );
 
     private static $controllers = array();
+    private static $arguments = array();
 
     public static function loadModel($model){
 
         include_once(strtolower(self::$path['model'] . self::$prefix['model'] . $model . ".php"));
+    }
+
+    public static function loadWidget($widget){
+
+        include_once(strtolower(self::$path['widget'] . self::$prefix['widget'] . $widget . ".php"));
+    }
+    
+    public static function getArgument($i = null) {
+        
+        if(is_null($i)) return self::$arguments;
+        if(!isset(self::$arguments[$i])) return null;
+        return self::$arguments[$i];
     }
 
     public static function findController($controller){
@@ -78,7 +93,9 @@ abstract class Route{
 
         Util::log("Controller: {$controller_name}", __FILE__, __LINE__);
 
-        $controller = new $controller_name($args);
+        self::$arguments = $args;
+
+        $controller = new $controller_name();
         $controller->start();
     }
 }
