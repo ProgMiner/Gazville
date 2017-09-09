@@ -25,27 +25,27 @@ class User{
 
     private $model;
 
-    private function __construct($keychain){
+    private function __construct($keychain) {
 
         $this->model = new Model_User($keychain);
     }
 
-    public function getId(){
+    public function getId() {
 
         return $this->model->getId();
     }
 
-    public function getKeychain(){
+    public function getKeychain() {
 
         return $this->model->getKeychain();
     }
 
-    public function getData($field = false, &$key_hash = null){
+    public function getData($field = false, &$key_hash = null) {
 
         $data = $this->model->getData($key_hash);
 
         if($field === false) return $data;
-        if(is_string($field)){
+        if(is_string($field)) {
             if(!isset($data[$field])) return "";
             $key_hash = $key_hash[$field];
             return $data[$field];
@@ -55,7 +55,7 @@ class User{
         $ret = array();
         $key_hash_tmp = $key_hash;
         $key_hash = array();
-        foreach($field as $key){
+        foreach($field as $key) {
             $key_hash[$key] = $key_hash_tmp[$field];
             $ret[$key] = $data[$key];
         }
@@ -63,12 +63,12 @@ class User{
         return $ret;
     }
 
-    public function setData(array $field, array $key_hash){
+    public function setData(array $field, array $key_hash) {
 
         $this->model->setData($field, $key_hash);
     }
 
-    public function isUserCan($permission){
+    public function isUserCan($permission) {
 
         $permissions = $this->model->getData();
         $permissions = $permissions['permissions'];
@@ -76,13 +76,13 @@ class User{
         return ($permissions & $permission) !== 0;
     }
 
-    public static function logout($id = false){
+    public static function logout($id = false) {
         
         if($id === false) $id = self::$current_user->getId();
         Keychain::resetSession($id);
     }
 
-    public static function login($login, $password_hash, $remember = false){
+    public static function login($login, $password_hash, $remember = false) {
 
         $id = Model_User::getIdByLogin($login);
         if($id === false) return 1; // Incorrect login
@@ -96,35 +96,35 @@ class User{
         return 0; //OK
     }
 
-    public static function isUserLoggedIn(){
+    public static function isUserLoggedIn() {
 
         return !is_null(self::$current_user);
     }
 
-    public static function getCurrentUser(){
+    public static function getCurrentUser() {
 
         return self::$current_user;
     }
 
-    public static function getCurrentUserId(){
+    public static function getCurrentUserId() {
 
         if(!self::isUserLoggedIn()) return 0;
         return self::$current_user->getId();
     }
 
-    public static function getCurrentUserData($field = false, &$key_hash = null){
+    public static function getCurrentUserData($field = false, &$key_hash = null) {
 
         if(!self::isUserLoggedIn()) return array();
         return self::$current_user->getData($field, $key_hash);
     }
 
-    public static function isCurrentUserCan($permission){
+    public static function isCurrentUserCan($permission) {
 
         if(!self::isUserLoggedIn()) return false;
         return self::$current_user->isUserCan($permission);
     }
 
-    public static function start(){
+    public static function start() {
 
         $keychain = Keychain::getKeychainBySession();
         if($keychain === false) return; // Incorrect password

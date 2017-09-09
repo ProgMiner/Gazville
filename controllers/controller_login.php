@@ -1,7 +1,7 @@
 <?
 class Controller_Login extends Controller{
 
-    private function logout(){
+    private function logout() {
 
         if(isset($_POST['token']) && User::isUserLoggedIn() && User::getCurrentUser()->getKeychain()->checkToken($_POST['token']))
             User::logout(User::getCurrentUserId());
@@ -9,13 +9,13 @@ class Controller_Login extends Controller{
         Util::redirect("/", __FILE__, __LINE__);
     }
 
-    public function start(){
+    public function start() {
 
         if(Route::getArgument(2) === "logout") return $this->logout();
 
         $data = array();
         while(isset($_POST['login']) && isset($_POST['password']) && 
-            !empty($_POST['login']) && !empty($_POST['password'])){
+            !empty($_POST['login']) && !empty($_POST['password'])) {
 
             $error = User::login($_POST['login'], md5($_POST['password']), isset($_POST['remember']));
 
@@ -42,7 +42,7 @@ class Controller_Login extends Controller{
         $this->view->place();
     }
 
-    public static function preroute($url){
+    public static function preroute($url) {
 
         if($url === "/logout") $url = "/login/logout";
 

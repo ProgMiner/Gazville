@@ -1,4 +1,5 @@
 <?
+
 abstract class Model{
 
     private static $model = array();
@@ -7,20 +8,20 @@ abstract class Model{
 
     protected $data;
 
-    public function __construct(){
+    public function __construct() {
 
         self::registerModel($this);
     }
 
     public abstract function getData();
-    public function commitData(){}
+    public function commitData() {}
 
-    public static function registerModel(Model $model){
+    public static function registerModel(Model $model) {
 
         array_push(self::$model, $model);
     }
 
-    public static function start(){
+    public static function start() {
 
         foreach(self::$model as $model)
             $model->commitData();

@@ -9,7 +9,7 @@ class View{
     private $view;
     private $path;
     
-    public function __construct(array $data = array(), $view = null){
+    public function __construct(array $data = array(), $view = null) {
 
         $this->data = $data;
 
@@ -19,9 +19,9 @@ class View{
         $this->view = $matches[2];
     }
 
-    private function setData($data, $value = ""){
+    private function setData($data, $value = "") {
 
-        if(is_array($data)){
+        if(is_array($data)) {
 
             foreach($data as $key => $value)
                 $this->data[$key] = $value;
@@ -34,7 +34,7 @@ class View{
         return $this->data;
     }
 
-    private function placeView($view){
+    private function placeView($view) {
 
         while(!preg_match("/^([\s\S]+?)(\.php)?$/", $view, $matches)) $view = self::$default_view;
         $view = $matches[1];
@@ -43,7 +43,7 @@ class View{
         include("{$this->path}{$view}.php");
     }
 
-    public function place(){
+    public function place() {
 
         $this->placeView($this->view);
     }

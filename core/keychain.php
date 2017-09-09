@@ -7,27 +7,27 @@ class Keychain{
     private $model;
     private $tokenSecret;
 
-    private function __construct($id, $key){
+    private function __construct($id, $key) {
 
         $this->model = new Model_Keychain($id, $key);
     }
 
-    public function getId(){
+    public function getId() {
 
         return $this->model->getId();
     }
 
-    public function getKeys(){
+    public function getKeys() {
 
         return array_keys($this->model->getData());
     }
 
-    public function isKeyExists($key){
+    public function isKeyExists($key) {
 
         return array_key_exists($key, $this->model->getData());
     }
 
-    public function encryptData($data, $key_hash){
+    public function encryptData($data, $key_hash) {
 
         $key = $this->model->getData();
 
@@ -40,11 +40,11 @@ class Keychain{
         return $encrypted;
     }
 
-    public function decryptData($encrypted, $hash, $key_hash = null, $die = true){
+    public function decryptData($encrypted, $hash, $key_hash = null, $die = true) {
 
         $key = $this->model->getData();
 
-        if(is_null($key_hash)){
+        if(is_null($key_hash)) {
 
             foreach($key as $key_hash => $key)
                 if(($data = $this->decryptData($encrypted, $hash, $key_hash, false)) !== false)
@@ -64,7 +64,7 @@ class Keychain{
         return $data;
     }
 
-    private function getTokenSecret(){
+    private function getTokenSecret() {
 
         $secret = "";
         if(!is_null($this->tokenSecret)) $secret = $this->tokenSecret;
@@ -79,7 +79,7 @@ class Keychain{
         return $secret;
     }
 
-    public function generateToken($salt = false){
+    public function generateToken($salt = false) {
 
         if($salt === false) $salt = time();
         $secret = $this->getTokenSecret();
@@ -88,7 +88,7 @@ class Keychain{
         return $token;
     }
 
-    public function checkToken($token){
+    public function checkToken($token) {
 
         $salt = explode(":", $token);
         $salt = $salt[0];
@@ -96,7 +96,7 @@ class Keychain{
         return $token === $this->generateToken($salt);
     }
 
-    public function updateSession($remember = false){
+    public function updateSession($remember = false) {
 
         $code = md5(time() . $this->model->getId() . rand());
 
@@ -108,7 +108,7 @@ class Keychain{
         Util::sendCookie(User::$cookie_name['session_code'], $code, $remember ? (time() + 3600 * 24 * 30) : 0);
     }
 
-    public static function resetSession($id){
+    public static function resetSession($id) {
 
         Model_Keychain::resetSession($id);
 
@@ -118,7 +118,7 @@ class Keychain{
         Util::sendCookie(User::$cookie_name['session_code'], "", false);
     }
 
-    public static function getKeychain($id, $password_hash, $by_session = false){
+    public static function getKeychain($id, $password_hash, $by_session = false) {
 
         $key = Model_Keychain::getKey($id, $by_session ? "session" : "user");
 
@@ -137,7 +137,7 @@ class Keychain{
         return new Keychain($id, $key);
     }
 
-    public static function getKeychainBySession(){
+    public static function getKeychainBySession() {
 
         if(!isset($_COOKIE[User::$cookie_name['session_id']])) return false;
         if(!isset($_COOKIE[User::$cookie_name['session_code']])) return false;
@@ -153,7 +153,7 @@ class Keychain{
     }
 
     // http://php.net/manual/ru/function.openssl-public-encrypt.php#56449
-    public static function encryptRSA($source, $key, &$ok = null, $private = false){
+    public static function encryptRSA($source, $key, &$ok = null, $private = false) {
 
         $maxlength = openssl_pkey_get_details($key);
 
@@ -174,7 +174,7 @@ class Keychain{
         return base64_encode($ret);
     }
 
-    public static function decryptRSA($source, $key, &$ok = null, $public = false){
+    public static function decryptRSA($source, $key, &$ok = null, $public = false) {
 
         $maxlength = openssl_pkey_get_details($key);
 

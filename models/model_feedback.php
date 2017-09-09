@@ -5,13 +5,13 @@ class Model_Feedback extends Model{
     private $all = false;
     private $id;
 
-    public function __construct($all = false, $id = null){
+    public function __construct($all = false, $id = null) {
 
         $this->all = $all;
         $this->id = $id;
     }
 
-    private function getMessage($id){
+    private function getMessage($id) {
 
         if(!is_null($this->data) && isset($this->data[$id])) return $this->data[$id];
 
@@ -36,7 +36,7 @@ class Model_Feedback extends Model{
         return $ret;
     }
 
-    public function getData(){
+    public function getData() {
 
         if(!User::isUserLoggedIn()) return array();
 
@@ -58,7 +58,7 @@ class Model_Feedback extends Model{
         $stmt->execute() or Util::mysqlDie($stmt, __FILE__, __LINE__);
         $result = $stmt->get_result() or Util::mysqlDie($stmt, __FILE__, __LINE__);
 
-        while($row = $result->fetch_assoc()){
+        while($row = $result->fetch_assoc()) {
 
             $row['msg_content'] = User::getCurrentUser()->getKeychain()->decryptData($row['msg_content'], $row['msg_hash']);
             $ret[$row['msg_id']] = $row;
@@ -73,7 +73,7 @@ class Model_Feedback extends Model{
         return $ret;
     }
 
-    public static function sendMessage($subject, $content, $author = null){
+    public static function sendMessage($subject, $content, $author = null) {
 
         if(is_null($author))
             if(!User::isUserLoggedIn()) return false;

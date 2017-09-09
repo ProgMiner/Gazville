@@ -1,5 +1,4 @@
 <?
-Route::loadWidget("Sidebar");
 
 abstract class Controller {
     
@@ -7,11 +6,8 @@ abstract class Controller {
     protected $view;
     protected $widget = array();
     
-    public function __construct(){
-        
-        
-    }
-    
+    public function __construct() {}
     public abstract function start();
-    public static function preroute($url){return $url;}
+
+    public static function preroute($url) {return $url;}
 }

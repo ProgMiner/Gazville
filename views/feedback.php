@@ -32,7 +32,7 @@
     </div>
 </div>
 
-<?if(count($last) > 0){?>
+<?if(count($last) > 0) {?>
 
 <div class="page">
     <div class="postcenter">
@@ -43,7 +43,7 @@
 </div>
 
 <?
-    foreach($last as $message){
+    foreach($last as $message) {
         extract($message);
 ?>
 

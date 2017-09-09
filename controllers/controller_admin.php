@@ -3,7 +3,7 @@
 
 class Controller_Admin extends Controller{
 
-    public function hub(){
+    public function hub() {
 
         $data = array();
 
@@ -14,7 +14,7 @@ class Controller_Admin extends Controller{
 
     }
 
-    public function users(){
+    public function users() {
 
         $data = array();
 
@@ -24,7 +24,7 @@ class Controller_Admin extends Controller{
         $this->view->place();
     }
 
-    public function feedback(){
+    public function feedback() {
 
         $data = array();
 
@@ -34,7 +34,7 @@ class Controller_Admin extends Controller{
         $this->view->place();
     }
 
-    public function start(){
+    public function start() {
 
         if(!User::isCurrentUserCan(User::$permission['adminpanel'])) Util::error404(__FILE__, __LINE__);
         

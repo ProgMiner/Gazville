@@ -6,14 +6,14 @@ class Model_Meta extends Model{
     private $owner;
     private $type;
 
-    public function __construct($owner, $type, $keychain){
+    public function __construct($owner, $type, $keychain) {
 
         $this->keychain = $keychain;
         $this->owner = $owner;
         $this->type = $type;
     }
 
-    public function getKeyHash(){
+    public function getKeyHash() {
 
         if(!is_null($this->data)) return array_values(array_unique(array_keys($this->data)));
 
@@ -38,9 +38,9 @@ class Model_Meta extends Model{
         return $ret;
     }
 
-    public function getData($with_groups = false){
+    public function getData($with_groups = false) {
 
-        if(is_null($this->data)){
+        if(is_null($this->data)) {
 
             $this->keychain->getKeys();
 
@@ -57,7 +57,7 @@ class Model_Meta extends Model{
 
             $stmt->bind_result($value, $hash, $key_hash) or Util::mysqlDie($stmt, __FILE__, __LINE__);
 
-            while($stmt->fetch()){
+            while($stmt->fetch()) {
 
                 $group = "";
                 if(($group = $this->keychain->decryptData($value, $hash, $key_hash)) === false) continue;
@@ -80,7 +80,7 @@ class Model_Meta extends Model{
         return $data;
     }
 
-    public function setData($new_data, $new_key_hash = array()){
+    public function setData($new_data, $new_key_hash = array()) {
 
         $data = $this->getData(true);
         $key_hash = array();
@@ -99,7 +99,7 @@ class Model_Meta extends Model{
         $data = array();
         $new_data = array_replace($this->getData(), $new_data);
 
-        foreach($key_hash as $field => $key_hash){
+        foreach($key_hash as $field => $key_hash) {
 
             if(!isset($data[$key_hash])) $data[$key_hash] = array();
             $data[$key_hash][$field] = $new_data[$field];
@@ -108,7 +108,7 @@ class Model_Meta extends Model{
         $this->data = $data;
     }
 
-    private function commitGroup($key_hash){
+    private function commitGroup($key_hash) {
 
         $stmt = db()->prepare("INSERT INTO `meta` () VALUES (?, ?, ?, ?, ?)")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
@@ -131,7 +131,7 @@ class Model_Meta extends Model{
         $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
     }
 
-    public function commitData(){
+    public function commitData() {
 
         $data = $this->getData(true);
 
@@ -152,7 +152,7 @@ class Model_Meta extends Model{
             if(count($data) <= 0) return;
 
             $query = "INSERT INTO `meta` (`meta_value`, `meta_hash`, `key_hash`, `owner_type`, `owner_id`) VALUES %s";
-            foreach($data as $key_hash => $group){
+            foreach($data as $key_hash => $group) {
 
                 $group = json_encode($group);
                 $hash = md5($group);

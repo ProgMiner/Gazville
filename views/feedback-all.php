@@ -11,7 +11,7 @@
 </div>
 
 <?
-    foreach($messages as $message){
+    foreach($messages as $message) {
         extract($message);
 ?>
 

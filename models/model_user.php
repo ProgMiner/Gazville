@@ -15,7 +15,7 @@ class Model_User extends Model{
     private $meta;
     private $keychain;
 
-    public function __construct(Keychain $keychain, $id = null){
+    public function __construct(Keychain $keychain, $id = null) {
 
         parent::__construct();
 
@@ -26,20 +26,20 @@ class Model_User extends Model{
         $this->meta = new Model_Meta($id, "user", $keychain);
     }
 
-    public function getId(){
+    public function getId() {
 
         return $this->id;
     }
 
-    public function getKeychain(){
+    public function getKeychain() {
 
         return $this->keychain;
     }
 
-    public function getData(){
+    public function getData() {
 
         // Getting general data
-        if(is_null($this->data)){
+        if(is_null($this->data)) {
 
             $stmt = db()->prepare("SELECT `user_login`, `vk_id` FROM `users` WHERE `user_id` = ? LIMIT 1")
                 or Util::mysqlDie(db(), __FILE__, __LINE__);
@@ -67,14 +67,14 @@ class Model_User extends Model{
         return $data;
     }
 
-    public function setData($data, $key_hash = array()){
+    public function setData($data, $key_hash = array()) {
 
         $this->getData();
 
         { // Setting general data
             $data = array_replace($tmp = $this->data, $data);
 
-            foreach($tmp as $key => $value){
+            foreach($tmp as $key => $value) {
                 $tmp[$key] = $data[$key];
                 unset($data[$key]);
             }
@@ -86,7 +86,7 @@ class Model_User extends Model{
         $this->meta->setData($data, $key_hash);
     }
 
-    public function commitData(){
+    public function commitData() {
 
         { // Commit general data
 
@@ -109,7 +109,7 @@ class Model_User extends Model{
         $this->meta->commitData();
     }
 
-    public static function getIdByLogin($login){
+    public static function getIdByLogin($login) {
 
         $stmt = db()->prepare("SELECT `user_id` FROM `users` WHERE `user_login` = ? LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
@@ -128,7 +128,7 @@ class Model_User extends Model{
         return $id;
     }
 
-    public static function getLoginById($id){
+    public static function getLoginById($id) {
 
         $stmt = db()->prepare("SELECT `user_login` FROM `users` WHERE `user_id` = ? LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);

@@ -1,5 +1,5 @@
 <?
-function gazville_profile_title($title){
+function gazville_profile_title($title) {
     if(!is_user_logged_in()) return $title;
     $request = $_SERVER['REQUEST_URI'];
     $userID = get_current_user_ID();
@@ -9,7 +9,7 @@ function gazville_profile_title($title){
     if(!$userData) return $title;
     $userName = $userData->display_name;
 
-    if(strpos($request, "/settings") !== false){
+    if(strpos($request, "/settings") !== false) {
         if($userID == get_current_user_ID()) return "Настройки профиля";
         else return "Настройки профиля {$userName}";
     }

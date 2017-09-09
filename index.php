@@ -7,8 +7,12 @@ require_once("config.php");
 ini_set("display_errors", DEBUG ? 1 : 0);
 error_reporting(DEBUG ? E_ALL : 0);
 
+// Libraries
+require_once("include/lessc.inc.php");
+
 // Core files
 require_once("core/controller.php");
+require_once("core/widget.php");
 require_once("core/model.php");
 require_once("core/view.php");
 require_once("core/db.php");

@@ -6,7 +6,7 @@ class Model_Keychain extends Model{
     private $key;
     private $keyHash;
 
-    public function __construct($id, $key){
+    public function __construct($id, $key) {
 
         parent::__construct();
 
@@ -17,12 +17,12 @@ class Model_Keychain extends Model{
         $this->keyHash = md5($pem);
     }
 
-    public function getId(){
+    public function getId() {
 
         return $this->id;
     }
 
-    private function decryptKey($key, $hash){
+    private function decryptKey($key, $hash) {
 
         $pem = Keychain::decryptRSA($key, $this->key, $ok);
         if(!$ok) Util::opensslDie(__FILE__, __LINE__);
@@ -33,7 +33,7 @@ class Model_Keychain extends Model{
         return $key;
     }
 
-    public function getData(){
+    public function getData() {
 
         if(!is_null($this->data)) return $this->data;
 
@@ -62,7 +62,7 @@ class Model_Keychain extends Model{
         return $ret;
     }
 
-    public function updateSession($code){
+    public function updateSession($code) {
 
         $id = $this->id;
         self::resetSession($id);
@@ -88,7 +88,7 @@ class Model_Keychain extends Model{
         $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
     }
 
-    public static function resetSession($id){
+    public static function resetSession($id) {
 
         $stmt = db()->prepare("DELETE FROM `keys` WHERE (`user_id` = ? AND `key_type` = 'session') LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
@@ -100,7 +100,7 @@ class Model_Keychain extends Model{
         $stmt->close() or Util::mysqlDie($stmt, __FILE__, __LINE__);
     }
 
-    public static function getKeyByHash($owner, $hash, $type = "group"){
+    public static function getKeyByHash($owner, $hash, $type = "group") {
 
         $stmt = db()->prepare("SELECT `key` FROM `keys` WHERE (`user_id` = ? AND `key_type` = ? AND `key_hash` = ?) LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
@@ -119,7 +119,7 @@ class Model_Keychain extends Model{
         return $key;
     }
 
-    public static function getKey($owner, $type = "user", $hash = NULL){
+    public static function getKey($owner, $type = "user", $hash = NULL) {
 
         if(!is_null($hash) || $type === "group") return array(
                 'key' => getKeyByHash($owner, $hash, $type),

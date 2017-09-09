@@ -1,4 +1,9 @@
-<?header("Content-Type: text/html; charset=" . View::$charset);?>
+<?
+    header("Content-Type: text/html; charset=" . View::$charset);
+    Route::loadWidget("Sidebar");
+
+    $sidebar = new Widget_Sidebar();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,10 +15,7 @@
         <link rel="icon" href="/assets/images/logo-150x150.jpg" sizes="32x32" />
         <link rel="icon" href="/assets/images/logo.jpg" sizes="192x192" />
 
-        <link rel="stylesheet" href="/assets/styles/style.css?<?=time()?>" />
-        <link rel="stylesheet" href="/assets/styles/loading.css?<?=time()?>" />
-        <link rel="stylesheet" href="/assets/styles/sidebar.css?<?=time()?>" />
-        <link rel="stylesheet" href="/assets/styles/header.css?<?=time()?>" />
+        <link rel="stylesheet" href="<?=Util::insertLESS("style")?>" />
 
         <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="/assets/js/script.js"></script>
@@ -32,7 +34,7 @@
                 <div id="squaresWaveG_8" class="squaresWaveG"></div>
             </div>
         </div>
-        <?$this->placeView("sidebar.php");?>
+        <?$sidebar->place();?>
         <div id="center">
             <div id="header"<?if(!User::isUserLoggedIn()):?> class="slice"<?endif;?>>
                 <a class="vk" href="https://vk.com/club70404044" target="_blank">Группа</a><!--

@@ -3,7 +3,7 @@
     $this->placeView("header.php");
 
     $login = $default['login'];
-    if(empty($login) && isset($_COOKIE[User::$cookie_name['session_id']])){
+    if(empty($login) && isset($_COOKIE[User::$cookie_name['session_id']])) {
 
         $id = $_COOKIE[User::$cookie_name['session_id']];
         $login = Model_User::getLoginById($id);

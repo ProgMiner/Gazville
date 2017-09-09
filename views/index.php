@@ -1,21 +1,9 @@
-<?get_header();
+<?$this->placeView("header.php");?>
 
-// циклы вывода записей
-// если записи найдены
-if(have_posts()){
-    while(have_posts()){
-        the_post();
-        get_template_part("post");
-    }
-    the_posts_pagination(array(
-            'end_size'	=> 0,
-            'mid_size'	=> 2,
-            'prev_text'	=> "&laquo;",
-            'next_text'	=> "&raquo;"
-        ));
-// если записей не найдено
-}else{
-    get_template_part("post");
-}
+<div class="page">
+    <div class="postcenter">
+        <div class="postcontent"></div>
+    </div>
+</div>
 
-get_footer();?>
+<?$this->placeView("footer.php");?>

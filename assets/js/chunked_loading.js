@@ -1,11 +1,11 @@
-;(function($){
+;(function($) {
 
-    function loadUrlChunked(href, destination, hist){
+    function loadUrlChunked(href, destination, hist) {
         $("#loadinglayer").css("display", "block");
-        $.get(href, {contentonly: ""}, function(data){
-            if(data.indexOf("<!-- Content Only Mode -->") === 0 && data.indexOf("document.write(") < 0){
+        $.get(href, {contentonly: ""}, function(data) {
+            if(data.indexOf("<!-- Content Only Mode -->") === 0 && data.indexOf("document.write(") < 0) {
                 var metaindex = data.indexOf("<!-- <ContentOnlyMeta>");
-                if(metaindex > -1 && data.indexOf("</ContentOnlyMeta> -->") > metaindex){
+                if(metaindex > -1 && data.indexOf("</ContentOnlyMeta> -->") > metaindex) {
                     var meta = data.substring(metaindex + 22);
                     meta = meta.substring(0, meta.indexOf("</ContentOnlyMeta> -->"));
                     meta = JSON.parse(meta);
@@ -19,8 +19,8 @@
         });
     }
 
-    $(document).ready(function(){
-        $(document.body).click(function(event){
+    $(document).ready(function() {
+        $(document.body).click(function(event) {
             if(event.target.tagName.toLowerCase() != "a") return;
             var href = event.target.href;
             if(href.indexOf("/") !== 0 && href.indexOf(location.protocol + "//" + location.hostname) !== 0) return;

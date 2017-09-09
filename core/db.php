@@ -4,9 +4,9 @@ class DBSingleton{
 
     private static $mysqli;
 
-    public static function getMySQLi(){
+    public static function getMySQLi() {
 
-        if(is_null(self::$mysqli)){
+        if(is_null(self::$mysqli)) {
 
             self::$mysqli = new mysqli(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_NAME);
 
@@ -21,7 +21,7 @@ class DBSingleton{
     }
 }
 
-function db(){
+function db() {
 
     return DBSingleton::getMySQLi();
 }

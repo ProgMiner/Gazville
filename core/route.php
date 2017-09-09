@@ -1,4 +1,5 @@
 <?
+
 abstract class Route{
 
     public static $default_controller_name = "Home";
@@ -19,12 +20,12 @@ abstract class Route{
     private static $controllers = array();
     private static $arguments = array();
 
-    public static function loadModel($model){
+    public static function loadModel($model) {
 
         include_once(strtolower(self::$path['model'] . self::$prefix['model'] . $model . ".php"));
     }
 
-    public static function loadWidget($widget){
+    public static function loadWidget($widget) {
 
         include_once(strtolower(self::$path['widget'] . self::$prefix['widget'] . $widget . ".php"));
     }
@@ -36,7 +37,7 @@ abstract class Route{
         return self::$arguments[$i];
     }
 
-    public static function findController($controller){
+    public static function findController($controller) {
 
         $controller = strtolower($controller);
         foreach(self::$controllers as $loaded_controller)
@@ -46,7 +47,7 @@ abstract class Route{
         return false;
     }
 
-    private static function loadControllers(){
+    private static function loadControllers() {
 
         $path = self::$path['controller'];
         $dir = scandir($path, SCANDIR_SORT_NONE);
@@ -62,7 +63,7 @@ abstract class Route{
                 array_push(self::$controllers, $class);
     }
 
-    private static function prerouting($url){
+    private static function prerouting($url) {
 
         foreach (self::$controllers as $controller)
             $url = $controller::preroute($url);
@@ -72,7 +73,7 @@ abstract class Route{
         return $url;
     }
 
-    public static function start(){
+    public static function start() {
 
         self::loadControllers();
 

@@ -6,7 +6,7 @@ class Controller_Feedback extends Controller{
 
     private $action = "";
 
-    public function __construct(){
+    public function __construct() {
 
         parent::__construct();
 
@@ -24,7 +24,7 @@ class Controller_Feedback extends Controller{
         $this->action = $arg;
     }
 
-    public function start(){
+    public function start() {
 
         $data = $this->model->getData();
 
@@ -34,7 +34,7 @@ class Controller_Feedback extends Controller{
                     'messages' => $data
                 );
 
-        if($this->action === ""){
+        if($this->action === "") {
 
             $data = array(
                     'last' => $data
@@ -48,7 +48,7 @@ class Controller_Feedback extends Controller{
 
             if(isset($_POST['subject']) && !empty($_POST['subject']) && 
                 isset($_POST['content']) && !empty($_POST['content']) &&
-                ((isset($_POST['email']) && !empty($_POST['email'])) || User::isUserLoggedIn())){
+                ((isset($_POST['email']) && !empty($_POST['email'])) || User::isUserLoggedIn())) {
 
                 if(User::isUserLoggedIn()) $data['status'] = Model_Feedback::sendMessage($_POST['subject'], $_POST['content']);
                 else $data['status'] = Model_Feedback::sendMessage($_POST['subject'], $_POST['content'], $_POST['email']);

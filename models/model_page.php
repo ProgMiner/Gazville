@@ -4,14 +4,14 @@ class Model_Page extends Model{
 
     private $id;
 
-    public function __construct($id){
+    public function __construct($id) {
 
         parent::__construct();
         
         $this->id = $id;
     }
 
-    public function getData(){
+    public function getData() {
 
         if(!is_null($this->data)) return $this->data;
 
@@ -39,7 +39,7 @@ class Model_Page extends Model{
         return $ret;
     }
 
-    public static function getIdByURL($url){
+    public static function getIdByURL($url) {
 
         $stmt = db()->prepare("SELECT `page_id` FROM `pages` WHERE `page_url` = ? LIMIT 1")
             or Util::mysqlDie(db(), __FILE__, __LINE__);
