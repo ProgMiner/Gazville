@@ -1,4 +1,4 @@
-<?
+<?php
     $this->setData("title", "Обратная cвязь: {$msg_subject}");
     $this->placeView("header.php");
 ?>
@@ -11,4 +11,4 @@
     </div>
 </div>
 
-<?$this->placeView("footer.php");?>
+<?php $this->placeView("footer.php");?>

@@ -1,4 +1,4 @@
-<?
+<?php
     $this->setData("title", "Вход");
     $this->placeView("header.php");
 
@@ -22,7 +22,7 @@
         }
 ?>
 
-<?if(isset($error)):?>
+<?php if(isset($error)):?>
 <div class="page">
     <div class="postcenter error">
         <div class="postcontent">
@@ -30,7 +30,7 @@
         </div>
     </div>
 </div>
-<?endif;?>
+<?php endif;?>
 
 <div class="page">
     <div class="postcenter">
@@ -48,4 +48,4 @@
     </div>
 </div>
 
-<?$this->placeView("footer.php");?>
+<?php $this->placeView("footer.php");?>

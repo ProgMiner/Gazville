@@ -1,4 +1,4 @@
-<?
+<?php
     $this->setData("title", "Обратная cвязь: Все обращения");
     $this->placeView("header.php");
 ?>
@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<?
+<?php
     foreach($messages as $message) {
         extract($message);
 ?>
@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<?
+<?php
     }
 
     $this->placeView("footer.php");

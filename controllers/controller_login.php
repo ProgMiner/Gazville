@@ -1,4 +1,4 @@
-<?
+<?php
 class Controller_Login extends Controller{
 
     private function logout() {

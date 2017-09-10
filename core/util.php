@@ -1,4 +1,4 @@
-<?
+<?php
 
 abstract class Util{
     
@@ -32,7 +32,7 @@ abstract class Util{
 
     private static $less = null;
 
-    public static function insertLESS($name, $path = "assets/style/", $anticache = DEBUG, $file = __FILE__, $line = __LINE__) {
+    public static function insertLESS($name, $path = "assets/style/", $anticache = DEBUG, $force = DEBUG, $file = __FILE__, $line = __LINE__) {
 
         if(is_null(self::$less)) self::$less = new lessc;
 
@@ -41,7 +41,8 @@ abstract class Util{
 
         try {
 
-            self::$less->checkedCompile("{$path}{$name}.less", $ret);
+            if($force) self::$less->compileFile("{$path}{$name}.less", $ret);
+            else self::$less->checkedCompile("{$path}{$name}.less", $ret);
         } catch(exception $e) {
 
             self::_die("LESS Error: " . $e->getMessage(), $file, $line);

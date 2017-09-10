@@ -1,8 +1,8 @@
-<?header("Content-Type: text/html; charset=" . View::$charset);?>
+<?php header("Content-Type: text/html; charset=" . View::$charset);?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title><?if(!empty($title)) echo "{$title} &mdash; ";?>Админпанель Gazville.Ru</title>
+        <title><?php if(!empty($title)) echo "{$title} &mdash; ";?>Админпанель Gazville.Ru</title>
 
         <meta charset="<?=View::$charset?>">
         <meta name="viewport" content="width=device-width">

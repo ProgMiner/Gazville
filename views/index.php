@@ -1,4 +1,4 @@
-<?$this->placeView("header.php");?>
+<?php $this->placeView("header.php");?>
 
 <div class="page">
     <div class="postcenter">
@@ -6,4 +6,4 @@
     </div>
 </div>
 
-<?$this->placeView("footer.php");?>
+<?php $this->placeView("footer.php");?>

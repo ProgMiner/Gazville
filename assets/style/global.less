@@ -1,0 +1,29 @@
+// Variables
+
+@base-font: Tahoma, "Trebuchet MS", Helvetica, sans-serif;
+
+// Mixins
+
+.nopadding() {
+    padding: 0;
+}
+.nomargin() {
+    margin: 0;
+}
+.nooutline(){
+    outline: none;
+}
+
+.hyphens(@_val) {
+    -webkit-hyphens: @_val;
+    -moz-hyphens: @_val;
+    -ms-hyphens: @_val;
+    hyphens: @_val;
+}
+.transform(@_val) {
+    -webkit-transform: @_val;
+    -moz-transform: @_val;
+    -ms-transform: @_val;
+    -o-transform: @_val;
+    transform: @_val;
+}

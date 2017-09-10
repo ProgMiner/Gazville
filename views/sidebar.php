@@ -1,6 +1,6 @@
 <div id="sidebar">
     <a class="expand">Свернуть</a>
-    <?
+    <?php
         foreach ($menu as $link) {
             
             //

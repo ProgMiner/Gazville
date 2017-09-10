@@ -1,0 +1,189 @@
+@import "global.less";
+
+* {
+    font-family: @base-font;
+    .nooutline;
+}
+
+html, body {
+    .nopadding;
+    .nomargin;
+}
+
+// Links
+
+a {
+    color: blue;
+    text-decoration: none;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+// Forms
+
+button, input, select, textarea {
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 5px;
+    font-size: 15px;
+    line-height: 22px;
+    vertical-align: baseline;
+    background-color: #f7f7f7;
+}
+button, input {
+    .hyphens(none);
+}
+input, textarea {
+    background-image: -webkit-linear-gradient(transparent, transparent); // Removing the inner shadow on iOS inputs
+    border: 1px solid #eaeaea;
+    border: 1px solid rgba(51, 51, 51, 0.1);
+    color: #707070;
+    color: rgba(51, 51, 51, 0.7);
+    
+    &:focus {
+        background-color: white;
+        color: #333;
+    }
+}
+button, input, select, textarea { &[disabled] {
+    cursor: default;
+    opacity: .5;
+}}
+button, input[type="button"], input[type="reset"], input[type="submit"] {
+    display: block;
+    width: ~"calc(100% - 2px)";
+    margin-left: 1px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #333;
+    
+    &:hover, &:focus {
+        background-color: #707070;
+        background-color: rgba(51, 51, 51, 0.7);
+    }
+}
+textarea {
+    overflow: auto;
+    vertical-align: top;
+}
+form {
+    display: inline-block;
+    .nopadding;
+    .nomargin;
+}
+label {
+    height: 34px;
+    display: block;
+    overflow: hidden;
+    padding-left: 5px;
+    line-height: 32px;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+    background-color: #f7f7f7;
+    border: 1px solid #eaeaea;
+    border: 1px solid rgba(51, 51, 51, 0.1);
+    cursor: text;
+    
+    & + & {
+        margin-top: -1px;
+    }
+    
+    & > input, & > span.checkbox, &.tarea > textarea {
+        border: 0px;
+    }
+    
+    & > input, & > span.checkbox { &:first-child {
+            float: right;
+            border-left: 1px solid #eaeaea;
+            border-left: 1px solid rgba(51, 51, 51, 0.1);
+        }
+    }
+    
+    & > input:first-child {
+        min-width: ~"calc(100% - 150px)";
+    }
+    
+    &.tarea {
+        height: auto;
+        
+        & > textarea:first-child {
+            display: block;
+            max-width: none;
+            width: ~"calc(100% + 5px)";
+            margin-left: -5px;
+            border-top: 1px solid #eaeaea;
+            border-top: 1px solid rgba(51, 51, 51, 0.1);
+        }
+    }
+}
+
+// Checkbox
+
+span.checkbox {
+    display: inline-block;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    background-color: #f7f7f7;
+    border: 1px solid #eaeaea;
+    border: 1px solid rgba(51, 51, 51, 0.1);
+    cursor: pointer;
+
+    & > * {
+        display: none;
+    }
+    & > input[type=checkbox]:first-child {
+        display: block;
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        z-index: 10;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        top: 0px;
+        opacity: 0;
+        .nomargin;
+
+        & + span {
+            display: block;
+            width: 32px;
+            height: 32px;
+            position: relative;
+
+            &:before, &:after {
+                content: '';
+                position: absolute;
+                top: 14px;
+                left: 2px;
+                width: 28px;
+                height: 4px;
+                transition: 0.35s;
+                background-image: linear-gradient(#333, #333);
+                .transform(rotate(-45deg));
+            }
+            &:after {
+                .transform(rotate(45deg));
+            }
+        }
+        &:checked + span {
+            &:before, &:after {
+                top: 14px;
+                left: 6px;
+                width: 28px;
+                height: 4px;
+                .transform(rotate(-55deg));
+            }
+            &:after {
+                .transform(rotate(45deg));
+                width: 14px;
+                left: 2px;
+                top: 20px;
+            }
+        }
+    }
+}

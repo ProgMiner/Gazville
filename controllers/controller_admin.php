@@ -1,4 +1,4 @@
-<?
+<?php
 //Route::loadModel("Admin");
 
 class Controller_Admin extends Controller{

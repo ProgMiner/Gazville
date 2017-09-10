@@ -1,4 +1,4 @@
-<?
+<?php
 class Controller_User extends Controller{
 
     public function start() {

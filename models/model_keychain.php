@@ -1,4 +1,4 @@
-<?
+<?php
 
 class Model_Keychain extends Model{
 

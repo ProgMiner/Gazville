@@ -1,4 +1,4 @@
-<?
+<?php
 function gazville_profile_title($title) {
     if(!is_user_logged_in()) return $title;
     $request = $_SERVER['REQUEST_URI'];

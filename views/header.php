@@ -1,4 +1,4 @@
-<?
+<?php
     header("Content-Type: text/html; charset=" . View::$charset);
     Route::loadWidget("Sidebar");
 
@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><?if(!empty($title)) echo "{$title} &mdash; ";?>Gazville.Ru</title>
+        <title><?php if(!empty($title)) echo "{$title} &mdash; ";?>Gazville.Ru</title>
 
         <meta charset="<?=View::$charset?>">
         <meta name="viewport" content="width=device-width">
@@ -34,15 +34,15 @@
                 <div id="squaresWaveG_8" class="squaresWaveG"></div>
             </div>
         </div>
-        <?$sidebar->place();?>
+        <?php $sidebar->place();?>
         <div id="center">
-            <div id="header"<?if(!User::isUserLoggedIn()):?> class="slice"<?endif;?>>
+            <div id="header"<?php if(!User::isUserLoggedIn()):?> class="slice"<?php endif;?>>
                 <a class="vk" href="https://vk.com/club70404044" target="_blank">Группа</a><!--
              --><a class="info" href="/info">Информация</a><!--
              --><a class="events" href="/events">События</a><!--
-             --><?if(User::isUserLoggedIn()):?><!--
+             --><?php if(User::isUserLoggedIn()):?><!--
                  --><a class="rubrics" href="/c/rubrics">Рубрики</a><!--
-             --><?endif;?><!--
+             --><?php endif;?><!--
              --><a class="feedback" href="/feedback">Обратная связь</a>
             </div>
             <div id="content">

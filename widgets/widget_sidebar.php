@@ -1,4 +1,4 @@
-<?
+<?php
 
 class Widget_Sidebar extends Widget {
 
