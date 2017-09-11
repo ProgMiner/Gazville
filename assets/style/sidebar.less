@@ -1,0 +1,139 @@
+#sidebar{
+    width: 48px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0px 0px 15px #000;
+    transition: 0.35s;
+    overflow: visible;
+}
+#sidebar:hover, #sidebar.expanded{
+    background-color: rgba(255, 255, 255, 0.65);
+}
+#sidebar.expanded{
+    width: 256px;
+    overflow-y: auto;
+}
+#sidebar.expanded:hover{
+    background-color: rgba(255, 255, 255, 0.85);
+}
+#sidebar > *{
+    display: none;
+}
+#sidebar > a{
+    display: block;
+    width: 100%;
+    height: 48px;
+    padding: 8px;
+    padding-left: 56px;
+    overflow: hidden;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 32px;
+    font-size: 22px;
+    color: #000;
+    transition: 0.35s;
+
+    background: url('/assets/images/sidebar.svg') 0% 6% no-repeat;
+    background-size: 48px auto;
+}
+#sidebar > a:hover{
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+#sidebar > a.expand{
+    background-image: linear-gradient(#000, #000);
+    background-position: 8px 20px;
+    background-repeat: no-repeat;
+    background-size: 32px 6px;
+}
+#sidebar > a.expand:before, #sidebar > a.expand:after{
+    content: '';
+    width: 32px;
+    height: 6px;
+    background-color: #000;
+    position: absolute;
+    top: 10px;
+    left: 8px;
+    transition: 0.35s;
+}
+#sidebar > a.expand:after{
+    top: 30px;
+}
+#sidebar.expanded > a.expand:before, #sidebar.expanded > a.expand:after{
+    width: 24px;
+    top: 11px;
+    left: 7px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+#sidebar.expanded > a.expand:after{
+    top: 29px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+#sidebar > a.split{
+    height: 8px;
+    cursor: default;
+    background: transparent;
+}
+
+#sidebar > a.news{
+    background-position-y: 15.5%;
+}
+#sidebar > a.messages{
+    background-position-y: 25%;
+}
+#sidebar > a.friends{
+    background-position-y: 34%;
+}
+#sidebar > a.groups{
+    background-position-y: 42%;
+}
+#sidebar > a.photo{
+    background-position-y: 51%;
+}
+#sidebar > a.audio{
+    background-position-y: 59%;
+}
+#sidebar > a.video{
+    background-position-y: 68%;
+}
+#sidebar > a.games{
+    background-position-y: 77%;
+}
+
+#sidebar > a.login{
+    background-position-y: 85%;
+}
+
+#sidebar > a.logout{
+    background-position-y: 94%;
+}
+
+#sidebar > a.search{
+    background-image: url('/assets/images/search.svg');
+    background-position-y: 100%;
+    position: relative;
+    cursor: default;
+}
+#sidebar > a.search:before{
+    content: '';
+    width: 48px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    top: 0px;
+}

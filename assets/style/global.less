@@ -1,6 +1,27 @@
 // Variables
 
+@lightgray: #f7f7f7;
+@gray: #333;
+
 @base-font: Tahoma, "Trebuchet MS", Helvetica, sans-serif;
+
+@base-alpha: 65%;
+@hover-alpha: @base-alpha + 20%;
+
+@base-input-color: @gray;
+@second-input-color: fade(@base-input-color, 70%);
+@border-input-color: fade(@base-input-color, 10%);
+
+@base-header-color: fade(#fff, @base-alpha);
+@base-header-hover-color: fade(#fff, @hover-alpha);
+
+@base-vk-color: rgb(77, 113, 152);
+@header-vk-color: fade(@base-vk-color, @base-alpha);
+@header-hover-vk-color: fade(@base-vk-color, @hover-alpha);
+
+@base-feedback-color: rgb(255, 95, 95);
+@header-feedback-color: fade(@base-feedback-color, @base-alpha);
+@header-hover-feedback-color: fade(@base-feedback-color, @hover-alpha);
 
 // Mixins
 
@@ -10,7 +31,7 @@
 .nomargin() {
     margin: 0;
 }
-.nooutline(){
+.nooutline() {
     outline: none;
 }
 
