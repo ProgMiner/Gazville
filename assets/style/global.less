@@ -5,8 +5,13 @@
 
 @base-font: Tahoma, "Trebuchet MS", Helvetica, sans-serif;
 
+@base-text-color: black;
+@second-text-color: white; // contrast(@base-text-color);
+@link-text-color: blue;
+
 @base-alpha: 65%;
 @hover-alpha: @base-alpha + 20%;
+@disabled-alpha: @base-alpha - 30%;
 
 @base-input-color: @gray;
 @second-input-color: fade(@base-input-color, 70%);
@@ -18,10 +23,16 @@
 @base-vk-color: rgb(77, 113, 152);
 @header-vk-color: fade(@base-vk-color, @base-alpha);
 @header-hover-vk-color: fade(@base-vk-color, @hover-alpha);
+@header-vk-text-color: @second-text-color;
 
 @base-feedback-color: rgb(255, 95, 95);
 @header-feedback-color: fade(@base-feedback-color, @base-alpha);
 @header-hover-feedback-color: fade(@base-feedback-color, @hover-alpha);
+@header-feedback-text-color: @second-text-color;
+
+@base-sidebar-color: fade(#fff, @base-alpha);
+@base-sidebar-hover-color: fade(#fff, @hover-alpha);
+@base-sidebar-unactive-color: fade(#fff, @disabled-alpha);
 
 // Mixins
 

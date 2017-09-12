@@ -2,6 +2,7 @@
 
 * {
     font-family: @base-font;
+    color: @base-text-color;
     .nooutline;
 }
 
@@ -13,7 +14,7 @@ html, body {
 // Links
 
 a {
-    color: blue;
+    color: @link-text-color;
     text-decoration: none;
     
     &:hover {
@@ -41,7 +42,7 @@ input, textarea {
     color: @second-input-color;
     
     &:focus {
-        background-color: white;
+        background-color: @second-text-color;
         color: @base-input-color;
     }
 }
@@ -53,7 +54,7 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
     display: block;
     width: ~"calc(100% - 2px)";
     margin-left: 1px;
-    color: white;
+    color: @second-text-color;
     cursor: pointer;
     font-weight: bold;
     background-color: @base-input-color;

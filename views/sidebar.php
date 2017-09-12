@@ -1,5 +1,14 @@
 <div id="sidebar">
-    <a class="expand">Свернуть</a>
+    <span><a class="expand">Свернуть</a></span>
+    
+    <span class="submenu">
+        <a>Подменю</a>
+        <div class="submenu">
+            <span><a>Ы</a></span>
+            <span><a>Ы</a></span>
+            <span><a>Ы</a></span>
+        </div>
+    </span>
     <?php
         foreach ($menu as $link) {
             

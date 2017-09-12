@@ -20,7 +20,7 @@
         line-height: 25px;
         font-size: 22px;
         cursor: pointer;
-        color: #000;
+        color: @base-text-color;
 
         background: url('../images/header.svg') ~"calc(50% - 10px)" 0% no-repeat @base-header-color;
         background-size: 204px auto;
@@ -74,7 +74,7 @@
         }
 
         &.vk{
-            color: #fff;
+            color: @header-vk-text-color;
             background-color: @header-vk-color;
             
             &:after{
@@ -101,7 +101,7 @@
         }
         
         &.feedback{
-            color: #fff;
+            color: @header-feedback-text-color;
             background-color: @header-feedback-color;
             background-position-y: 100%;
             
