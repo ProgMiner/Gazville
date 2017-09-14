@@ -4,46 +4,30 @@
 @import "global.less";
 
 @import "general.less";
+@import "loading.less";
 @import "header.less";
 @import "sidebar.less";
 
-@import "loading.less";
-
-html, body{
+html, body {
     width: 100%;
-    min-height: 100%;
     overflow: auto;
     font-size: 18px;
+}
+html {
+    min-width: 1268px;
+    height: 100%;
     background-color: #2b152d;
     background-image: url('/assets/images/background.jpg');
     background-position: 50% 50%;
     background-attachment: fixed;
     background-size: cover;
 }
-html{
-    min-width: 1268px;
-    height: 100%;
-}
-body{
+body {
     min-width: 1210px;
     max-width: ~"calc(100% - 48px)";
     margin-left: 48px;
 }
-#loadinglayer{
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    z-index: 100000;
-    display: none;
-    background-color: rgba(0, 0, 0, 0.85);
-    padding-top: 150px;
-    text-align: center;
-    font-size: 24pt;
-    color: #fff;
-    transition: 0.5s;
-}
+
 #center{
     width: 1200px;
     margin: 0px auto;
@@ -135,44 +119,6 @@ div.posttitle + a{
 }
 div.postcontent{
     margin: 15px 0px;
-}
-nav.navigation.pagination{
-    display: block;
-    margin-top: 20px;
-    text-align: center;
-}
-nav.navigation.pagination > .nav-links{
-    display: inline-block;
-    background-color: rgba(255, 255, 255, 0.65);
-    overflow: hidden;
-    padding: 5px;
-}
-nav.navigation.pagination > .nav-links .page-numbers{
-    display: inline-block;
-    float: left;
-    font-size: 20px;
-    line-height: 25px;
-    padding: 5px 10px;
-    margin-right: 2px;
-    text-decoration: none;
-    cursor: default;
-}
-nav.navigation.pagination > .nav-links > a.page-numbers, nav.navigation.pagination > .nav-links > a > .page-numbers{
-    color: #000;
-}
-nav.navigation.pagination > .nav-links .page-numbers:last-child{
-    margin-right: 0px;
-}
-nav.navigation.pagination > .nav-links:not(:hover) > .page-numbers.current, nav.navigation.pagination > .nav-links > a.page-numbers:hover,
-nav.navigation.pagination > .nav-links:not(:hover) > span.page-numbers, nav.navigation.pagination > .nav-links > a:hover > span.page-numbers{
-    background-color: #000;
-    color: #fff;
-    cursor: pointer;
-}
-nav.navigation.pagination > .nav-links .page-numbers.next, nav.navigation.pagination > .nav-links .page-numbers.prev{
-    padding: 0px 20px;
-    font-size: 30px;
-    line-height: 35px;
 }
 #footer{
     width: 100%;

@@ -29,28 +29,6 @@ abstract class Util{
         
         Util::_die("302 Moved Temporarily to {$location}", $file, $line);
     }
-
-    private static $less = null;
-
-    public static function insertLESS($name, $path = "assets/style/", $anticache = DEBUG, $force = DEBUG, $file = __FILE__, $line = __LINE__) {
-
-        if(is_null(self::$less)) self::$less = new lessc;
-
-        $name = preg_replace("/([\s\S]*?)(\.less)?$/i", "$1", $name);
-        $ret = "{$path}{$name}.css";
-
-        try {
-
-            if($force) self::$less->compileFile("{$path}{$name}.less", $ret);
-            else self::$less->checkedCompile("{$path}{$name}.less", $ret);
-        } catch(exception $e) {
-
-            self::_die("LESS Error: " . $e->getMessage(), $file, $line);
-        }
-
-        if($anticache) $ret .= "?" . time();
-        return $ret;
-    }
     
     public static function getRealIPAddress() {
         

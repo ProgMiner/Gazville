@@ -34,7 +34,7 @@ button, input, select, textarea {
     background-color: @lightgray;
 }
 button, input {
-    .hyphens(none);
+    .cross-platform(hypens, none);
 }
 input, textarea {
     background-image: -webkit-linear-gradient(transparent, transparent); // Removing the inner shadow on iOS inputs
@@ -158,10 +158,10 @@ span.checkbox {
                 height: 4px;
                 transition: 0.35s;
                 background-image: linear-gradient(@base-input-color, @base-input-color);
-                .transform(rotate(-45deg));
+                .cross-platform(transform, rotate(-45deg));
             }
             &:after {
-                .transform(rotate(45deg));
+                .cross-platform(transform, rotate(45deg));
             }
         }
         &:checked + span {
@@ -170,10 +170,10 @@ span.checkbox {
                 left: 6px;
                 width: 28px;
                 height: 4px;
-                .transform(rotate(-55deg));
+                .cross-platform(transform, rotate(-55deg));
             }
             &:after {
-                .transform(rotate(45deg));
+                .cross-platform(transform, rotate(45deg));
                 width: 14px;
                 left: 2px;
                 top: 20px;

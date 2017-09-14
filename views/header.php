@@ -15,8 +15,17 @@
         <link rel="icon" href="/assets/images/logo-150x150.jpg" sizes="32x32" />
         <link rel="icon" href="/assets/images/logo.jpg" sizes="192x192" />
 
-        <link rel="stylesheet" href="<?=Util::insertLESS("style")?>" />
-
+        <link rel="stylesheet/less" type="text/css" href="/assets/style/style.less<?php if(DEBUG) echo("?" . time());?>" />
+        
+        <script>
+            less = {
+                dumpLineNumbers: "<?php echo(DEBUG ? "all" : ""); ?>",
+                env: "<?php echo(DEBUG ? "development" : "production"); ?>",
+                errorReporting: "<?php echo(DEBUG ? "html" : "console"); ?>",
+                logLevel: <?php echo(DEBUG ? 2 : 0); ?>
+            };
+        </script>
+        <script type="text/javascript" src="/assets/js/less.min.js"></script>
         <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="/assets/js/script.js"></script>
     </head>
